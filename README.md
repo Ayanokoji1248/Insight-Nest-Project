@@ -1,7 +1,3 @@
-# Insight-Nest-Project
-Here’s an updated description including instructions on how users can run **InsightNest** and install the necessary files:
-
----
 
 # InsightNest
 
