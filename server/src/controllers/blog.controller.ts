@@ -150,3 +150,59 @@ export const editBlog = async (req: Request, res: Response, next: NextFunction) 
 }
 
 
+export const deleteBlog = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        const { id } = req.params;
+        const userId = req.user;
+
+        if (!mongoose.Types.ObjectId.isValid(id) || !id) {
+            res.status(400).json({
+                message: "Wrong Id or not present"
+            })
+            return
+        }
+
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+            res.status(400).json({
+                message: "Invalid userId or not present"
+            })
+            return
+        }
+
+        const blog = await blogModel.findById(id);
+
+        if (!blog) {
+            res.status(400).json({
+                message: "Blog Not Found"
+            })
+            return
+        }
+
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            res.status(404).json({
+                message: "User not exist"
+            })
+            return
+        }
+
+        const blogIndex = user?.Blog.indexOf(new mongoose.Types.ObjectId(id))
+        user?.Blog.splice(blogIndex as number, 1)
+        await user.save();
+
+        await blog.deleteOne();
+
+        res.status(200).json({
+            message: "Blog Deleted"
+        })
+        return
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+}   
