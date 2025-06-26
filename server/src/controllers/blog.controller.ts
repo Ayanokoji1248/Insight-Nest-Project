@@ -56,6 +56,9 @@ export const createBlog = async (req: Request, res: Response, next: NextFunction
             user: userId
         })
 
+        userExist.Blog.push(blog._id);
+        await userExist.save();
+
         res.status(201).json({
             message: "Blog Created",
             blog
@@ -69,3 +72,4 @@ export const createBlog = async (req: Request, res: Response, next: NextFunction
         })
     }
 }
+
