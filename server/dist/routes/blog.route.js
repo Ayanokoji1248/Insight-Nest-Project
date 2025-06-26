@@ -10,4 +10,7 @@ blogRouter.get('/myblogs', user_middleware_1.userMiddleware, blog_controller_1.g
 blogRouter.get('/:id', user_middleware_1.userMiddleware, blog_controller_1.getBlog);
 blogRouter.put('/edit/:id', user_middleware_1.userMiddleware, blog_controller_1.editBlog);
 blogRouter.delete('/delete/:id', user_middleware_1.userMiddleware, blog_controller_1.deleteBlog);
+blogRouter.post('/like/:id', user_middleware_1.userMiddleware, blog_controller_1.likePost);
+blogRouter.delete('/unlike/:id', user_middleware_1.userMiddleware, blog_controller_1.unlikePost);
+// Search Blog
 exports.default = blogRouter;

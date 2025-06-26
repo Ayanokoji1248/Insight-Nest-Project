@@ -340,3 +340,47 @@ export const likePost = async (req: Request, res: Response, next: NextFunction) 
         return
     }
 }
+
+export const unlikePost = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = req.user;
+        const { id } = req.params;
+
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+            res.status(400).json({ message: "Invalid UserId" });
+            return
+        }
+
+        if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            res.status(400).json({ message: "Invalid BlogId" });
+            return
+        }
+
+        const blog = await blogModel.findById(id);
+
+        if (!blog) {
+            res.status(404).json({ message: "Blog not found" });
+            return
+        }
+
+        const userObjectId = new mongoose.Types.ObjectId(userId);
+
+        const index = blog.likes.findIndex((likeId) => likeId.equals(userObjectId));
+
+        if (index === -1) {
+            res.status(400).json({ message: "Post hasn't been liked yet" });
+            return
+        }
+
+        blog.likes.splice(index, 1);
+        await blog.save();
+
+        res.status(200).json({ message: "Post unliked" });
+        return
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+        return
+    }
+};

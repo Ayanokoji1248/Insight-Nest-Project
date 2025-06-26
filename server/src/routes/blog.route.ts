@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { userMiddleware } from "../middlewares/user.middleware";
-import { createBlog, deleteBlog, editBlog, getAllBlog, getBlog, getUserBlog } from "../controllers/blog.controller";
+import { createBlog, deleteBlog, editBlog, getAllBlog, getBlog, getUserBlog, likePost, unlikePost } from "../controllers/blog.controller";
 const blogRouter = Router();
 
 blogRouter.post('/create', userMiddleware, createBlog)
@@ -15,7 +15,9 @@ blogRouter.put('/edit/:id', userMiddleware, editBlog)
 
 blogRouter.delete('/delete/:id', userMiddleware, deleteBlog)
 
-blogRouter.post('/like/:id', userMiddleware, )
+blogRouter.post('/like/:id', userMiddleware, likePost)
+
+blogRouter.delete('/unlike/:id', userMiddleware, unlikePost)
 
 // Search Blog
 

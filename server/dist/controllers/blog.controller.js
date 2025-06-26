@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteBlog = exports.editBlog = exports.createBlog = exports.getBlog = exports.getAllBlog = exports.getUserBlog = void 0;
+exports.unlikePost = exports.likePost = exports.deleteBlog = exports.editBlog = exports.createBlog = exports.getBlog = exports.getAllBlog = exports.getUserBlog = void 0;
 const zod_1 = require("zod");
 const blog_model_1 = __importDefault(require("../models/blog.model"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -264,3 +264,83 @@ const deleteBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.deleteBlog = deleteBlog;
+const likePost = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const userId = req.user;
+        if (!id || !mongoose_1.default.Types.ObjectId.isValid(id)) {
+            res.status(400).json({
+                message: "Invalid ID"
+            });
+            return;
+        }
+        if (!userId || !mongoose_1.default.Types.ObjectId.isValid(userId)) {
+            res.status(400).json({
+                message: "Invalid User Id"
+            });
+            return;
+        }
+        const blog = yield blog_model_1.default.findById(id);
+        if (!blog) {
+            res.status(400).json({
+                message: "Blog not found"
+            });
+            return;
+        }
+        const userObjectId = new mongoose_1.default.Types.ObjectId(userId);
+        if (blog.likes.includes(userObjectId)) {
+            res.status(400).json({
+                message: "You Already Like the Blog"
+            });
+            return;
+        }
+        blog.likes.push(userObjectId);
+        yield blog.save();
+        res.status(200).json({
+            message: "Liked Blog"
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+        return;
+    }
+});
+exports.likePost = likePost;
+const unlikePost = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.user;
+        const { id } = req.params;
+        if (!userId || !mongoose_1.default.Types.ObjectId.isValid(userId)) {
+            res.status(400).json({ message: "Invalid UserId" });
+            return;
+        }
+        if (!id || !mongoose_1.default.Types.ObjectId.isValid(id)) {
+            res.status(400).json({ message: "Invalid BlogId" });
+            return;
+        }
+        const blog = yield blog_model_1.default.findById(id);
+        if (!blog) {
+            res.status(404).json({ message: "Blog not found" });
+            return;
+        }
+        const userObjectId = new mongoose_1.default.Types.ObjectId(userId);
+        const index = blog.likes.findIndex((likeId) => likeId.equals(userObjectId));
+        if (index === -1) {
+            res.status(400).json({ message: "Post hasn't been liked yet" });
+            return;
+        }
+        blog.likes.splice(index, 1);
+        yield blog.save();
+        res.status(200).json({ message: "Post unliked" });
+        return;
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+        return;
+    }
+});
+exports.unlikePost = unlikePost;
