@@ -11,6 +11,20 @@ const blogSchema = z.object({
     tags: z.array(z.string()).optional()
 })
 
+export const getAllBlog = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const blogs = await blogModel.find({});
+        res.status(200).json({
+            blogs
+        })
+        return
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+}
 
 export const createBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {

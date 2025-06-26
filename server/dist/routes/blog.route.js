@@ -5,4 +5,8 @@ const user_middleware_1 = require("../middlewares/user.middleware");
 const blog_controller_1 = require("../controllers/blog.controller");
 const blogRouter = (0, express_1.Router)();
 blogRouter.post('/create', user_middleware_1.userMiddleware, blog_controller_1.createBlog);
+blogRouter.get('/:id', user_middleware_1.userMiddleware);
+blogRouter.get('/all', user_middleware_1.userMiddleware, blog_controller_1.getAllBlog);
+blogRouter.put('/edit/:id', user_middleware_1.userMiddleware, blog_controller_1.editBlog);
+blogRouter.delete('/delete/:id', user_middleware_1.userMiddleware, blog_controller_1.deleteBlog);
 exports.default = blogRouter;
