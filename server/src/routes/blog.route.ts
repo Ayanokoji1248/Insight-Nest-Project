@@ -1,11 +1,11 @@
 import { Router } from "express"
 import { userMiddleware } from "../middlewares/user.middleware";
-import { createBlog, deleteBlog, editBlog, getAllBlog } from "../controllers/blog.controller";
+import { createBlog, deleteBlog, editBlog, getAllBlog, getBlog } from "../controllers/blog.controller";
 const blogRouter = Router();
 
 blogRouter.post('/create', userMiddleware, createBlog)
 
-blogRouter.get('/:id', userMiddleware,)
+blogRouter.get('/:id', userMiddleware, getBlog)
 
 blogRouter.get('/all', userMiddleware, getAllBlog)
 

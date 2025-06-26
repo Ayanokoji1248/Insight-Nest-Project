@@ -26,6 +26,39 @@ export const getAllBlog = async (req: Request, res: Response, next: NextFunction
     }
 }
 
+export const getBlog = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+
+        if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            res.status(400).json({
+                message: "Invalid Id or not present"
+            })
+            return
+        }
+        const blog = await blogModel.findById(id).populate("user", "fullName username avatar");
+
+        if (!blog) {
+            res.status(404).json({
+                message: "Blog not found"
+            })
+            return
+        }
+
+        res.status(200).json({
+            blog
+        })
+        return
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+        return
+    }
+}
+
 export const createBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { title, content, image, tags } = req.body

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteBlog = exports.editBlog = exports.createBlog = exports.getAllBlog = void 0;
+exports.deleteBlog = exports.editBlog = exports.createBlog = exports.getBlog = exports.getAllBlog = void 0;
 const zod_1 = require("zod");
 const blog_model_1 = __importDefault(require("../models/blog.model"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -39,6 +39,36 @@ const getAllBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.getAllBlog = getAllBlog;
+const getBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        if (!id || !mongoose_1.default.Types.ObjectId.isValid(id)) {
+            res.status(400).json({
+                message: "Invalid Id or not present"
+            });
+            return;
+        }
+        const blog = yield blog_model_1.default.findById(id).populate("user", "fullName username");
+        if (!blog) {
+            res.status(404).json({
+                message: "Blog not found"
+            });
+            return;
+        }
+        res.status(200).json({
+            blog
+        });
+        return;
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+        return;
+    }
+});
+exports.getBlog = getBlog;
 const createBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, content, image, tags } = req.body;
