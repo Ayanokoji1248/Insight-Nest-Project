@@ -15,6 +15,8 @@ blogRouter.put('/edit/:id', userMiddleware, editBlog)
 
 blogRouter.delete('/delete/:id', userMiddleware, deleteBlog)
 
+blogRouter.post('/like/:id', userMiddleware, )
+
 // Search Blog
 
 export default blogRouter

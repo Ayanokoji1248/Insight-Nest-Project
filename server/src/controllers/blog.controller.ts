@@ -285,4 +285,58 @@ export const deleteBlog = async (req: Request, res: Response, next: NextFunction
             message: "Internal Server Error"
         })
     }
-}   
+}
+
+
+export const likePost = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const userId = req.user;
+
+        if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            res.status(400).json({
+                message: "Invalid ID"
+            })
+            return
+        }
+
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+            res.status(400).json({
+                message: "Invalid User Id"
+            })
+            return
+        }
+
+        const blog = await blogModel.findById(id);
+
+        if (!blog) {
+            res.status(400).json({
+                message: "Blog not found"
+            })
+            return
+        }
+
+        const userObjectId = new mongoose.Types.ObjectId(userId)
+
+        if (blog.likes.includes(userObjectId)) {
+            res.status(400).json({
+                message: "You Already Like the Blog"
+            })
+            return
+        }
+
+        blog.likes.push(userObjectId)
+        await blog.save()
+
+        res.status(200).json({
+            message: "Liked Blog"
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+        return
+    }
+}
