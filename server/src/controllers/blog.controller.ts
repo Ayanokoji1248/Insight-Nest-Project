@@ -11,6 +11,39 @@ const blogSchema = z.object({
     tags: z.array(z.string()).optional()
 })
 
+export const getUserBlog = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = req.user;
+        if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+            res.status(400).json({
+                message: "Invalid Id or Not Present"
+            })
+            return
+        }
+
+        const blogs = await blogModel.find({ user: userId }).populate("user", "fullName username avatar").sort({ createdAt: -1 });
+
+        if (!blogs || blogs.length === 0) {
+            res.status(400).json({
+                message: "No Blogs"
+            })
+            return
+        }
+
+        res.status(200).json({
+            blogs
+        })
+        return
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+        return
+    }
+}
+
 export const getAllBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const blogs = await blogModel.find({});

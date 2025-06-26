@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteBlog = exports.editBlog = exports.createBlog = exports.getBlog = exports.getAllBlog = void 0;
+exports.deleteBlog = exports.editBlog = exports.createBlog = exports.getBlog = exports.getAllBlog = exports.getUserBlog = void 0;
 const zod_1 = require("zod");
 const blog_model_1 = __importDefault(require("../models/blog.model"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -23,6 +23,36 @@ const blogSchema = zod_1.z.object({
     image: zod_1.z.string().optional(),
     tags: zod_1.z.array(zod_1.z.string()).optional()
 });
+const getUserBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.user;
+        if (!userId || !mongoose_1.default.Types.ObjectId.isValid(userId)) {
+            res.status(400).json({
+                message: "Invalid Id or Not Present"
+            });
+            return;
+        }
+        const blogs = yield blog_model_1.default.find({ user: userId }).populate("user", "fullName username avatar").sort({ createdAt: -1 });
+        if (!blogs || blogs.length === 0) {
+            res.status(400).json({
+                message: "No Blogs"
+            });
+            return;
+        }
+        res.status(200).json({
+            blogs
+        });
+        return;
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+        return;
+    }
+});
+exports.getUserBlog = getUserBlog;
 const getAllBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const blogs = yield blog_model_1.default.find({});
@@ -48,7 +78,7 @@ const getBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
             });
             return;
         }
-        const blog = yield blog_model_1.default.findById(id).populate("user", "fullName username");
+        const blog = yield blog_model_1.default.findById(id).populate("user", "fullName username avatar");
         if (!blog) {
             res.status(404).json({
                 message: "Blog not found"
