@@ -9,6 +9,41 @@ const commentSchema = z.object({
     comment: z.string().min(1, "Comment cannot be empty")
 })
 
+export const getallComments = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+
+        if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            res.status(404).json({
+                message: "Invalid Id or Not found"
+            })
+            return
+        }
+
+        const comments = await commentModel.find({
+            blog: id
+        }).populate("user", "username fullName avatar");
+
+        if (!comments || comments.length === 0) {
+            res.status(400).json({
+                message: "No Comments"
+            })
+            return
+        }
+
+        res.status(200).json({
+            message: "All Comments",
+            comments
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+        return
+    }
+}
 
 export const createComment = async (req: Request, res: Response, next: NextFunction) => {
     try {
