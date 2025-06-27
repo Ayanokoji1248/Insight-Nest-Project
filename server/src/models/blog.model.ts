@@ -29,7 +29,12 @@ const blogSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
     }],
-    tags: [String]
+    tags: [String],
+    category: {
+        type: String,
+        required: true,
+        enum: ["Technology", "Health", "Lifestyle", "Education", "Travel", "Finance", "Entertainment", "Business"]
+    }
 }, {
     timestamps: true
 })

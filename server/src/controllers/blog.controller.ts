@@ -94,7 +94,7 @@ export const getBlog = async (req: Request, res: Response, next: NextFunction) =
 
 export const createBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { title, content, image, tags } = req.body
+        const { title, content, image, tags, category } = req.body
         const userId = req.user;
         const validate = blogSchema.safeParse(req.body);
 
@@ -133,6 +133,7 @@ export const createBlog = async (req: Request, res: Response, next: NextFunction
             content,
             image,
             tags,
+            category,
             user: userId
         })
 
@@ -158,7 +159,7 @@ export const editBlog = async (req: Request, res: Response, next: NextFunction) 
     try {
         const userId = req.user;
         const { id } = req.params
-        const { title, content, image, tags } = req.body
+        const { title, content, image, tags, category } = req.body
 
         const validate = blogSchema.safeParse(req.body);
 
@@ -212,7 +213,8 @@ export const editBlog = async (req: Request, res: Response, next: NextFunction) 
             title,
             content,
             image,
-            tags
+            tags,
+            category
         }, { new: true });
 
         res.status(200).json({
