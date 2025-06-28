@@ -33,8 +33,8 @@ const NavBar = () => {
             <div>
                 {user ?
                     <div className="flex items-center gap-4">
-                        <div className="p-2 bg-zinc-100 rounded-md">
-                            <Bell strokeWidth={1} size={20}/>
+                        <div className="p-2 hover:bg-zinc-100 transition-all duration-300 cursor-pointer rounded-md">
+                            <Bell strokeWidth={1} size={20} />
                         </div>
                         <div className="w-8 h-8 rounded-full bg-amber-400"></div>
                     </div > :
