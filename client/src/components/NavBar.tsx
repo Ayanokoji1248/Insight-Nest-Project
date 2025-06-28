@@ -7,7 +7,7 @@ const NavBar = () => {
     const { openModal } = userModalStore()
     const { user } = userStore()
     return (
-        <div className="w-full h-16 bg-white fixed flex items-center justify-between px-5 md:px-32">
+        <div className="w-full h-16 bg-white fixed flex items-center justify-between px-5 md:px-32 border-b-[1px] border-zinc-200">
 
             <div>
                 <h1 className="font-black text-2xl md:text-4xl font-[EB_Garamond] text-[#003566]">Insight Nest</h1>
