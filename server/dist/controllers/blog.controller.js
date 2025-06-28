@@ -101,7 +101,7 @@ const getBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 exports.getBlog = getBlog;
 const createBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { title, content, image, tags } = req.body;
+        const { title, content, image, tags, category } = req.body;
         const userId = req.user;
         const validate = blogSchema.safeParse(req.body);
         if (!validate.success) {
@@ -135,6 +135,7 @@ const createBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             content,
             image,
             tags,
+            category,
             user: userId
         });
         userExist.Blog.push(blog._id);
@@ -157,7 +158,7 @@ const editBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     try {
         const userId = req.user;
         const { id } = req.params;
-        const { title, content, image, tags } = req.body;
+        const { title, content, image, tags, category } = req.body;
         const validate = blogSchema.safeParse(req.body);
         if (!validate.success) {
             res.status(400).json({
@@ -201,7 +202,8 @@ const editBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             title,
             content,
             image,
-            tags
+            tags,
+            category
         }, { new: true });
         res.status(200).json({
             message: "Blog Edited",

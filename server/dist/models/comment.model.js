@@ -34,43 +34,22 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const blogSchema = new mongoose_1.Schema({
-    title: {
+const commentSchema = new mongoose_1.Schema({
+    comment: {
         type: String,
-        minLength: [5, "Atleast 5 character"],
-        required: [true, "Title is required"],
-        trim: true
-    },
-    content: {
-        type: String,
-        minLength: [5, "Atleast 5 character"],
-        required: [true, "Content is required"],
-    },
-    image: {
-        type: String,
-        default: "image.png"
+        minLength: 5,
+        required: true,
     },
     user: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+        ref: "user"
     },
-    likes: [{
-            type: mongoose_1.default.Schema.Types.ObjectId,
-            ref: "User"
-        }],
-    comments: [{
-            type: mongoose_1.default.Schema.Types.ObjectId,
-            ref: "Comment"
-        }],
-    tags: [String],
-    category: {
-        type: String,
-        required: true,
-        enum: ["Technology", "Health", "Lifestyle", "Education", "Travel", "Finance", "Entertainment", "Business"]
+    blog: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "blog"
     }
 }, {
     timestamps: true
 });
-const blogModel = mongoose_1.default.model("Blog", blogSchema);
-exports.default = blogModel;
+const commentModel = mongoose_1.default.model("comment", commentSchema);
+exports.default = commentModel;
