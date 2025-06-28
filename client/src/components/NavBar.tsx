@@ -7,13 +7,13 @@ const NavBar = () => {
     const { openModal } = userModalStore()
     const { user } = userStore()
     return (
-        <div className="w-full h-16 bg-white fixed flex items-center justify-between px-32">
+        <div className="w-full h-16 bg-white fixed flex items-center justify-between px-5 md:px-32">
 
             <div>
-                <h1 className="font-black text-4xl font-[EB_Garamond] text-[#003566]">Insight Nest</h1>
+                <h1 className="font-black text-2xl md:text-4xl font-[EB_Garamond] text-[#003566]">Insight Nest</h1>
             </div>
 
-            <div className="flex gap-12 items-center">
+            <div className="md:flex gap-3 md:gap-12 items-center hidden ">
                 {user ?
                     <>
                         <NavigationLink to="/blog" text="Blogs" />
