@@ -3,7 +3,7 @@ import { Bookmark, Heart, MessageCircle } from "lucide-react"
 
 const BlogCard = () => {
     return (
-        <div className="border-[1px] border-zinc-300 shadow-xl w-96 min-h-[520px] rounded-xl overflow-hidden">
+        <div className="border-[1px] border-zinc-300 shadow-xl md:w-96 min-h-[520px] rounded-xl overflow-hidden">
             <div>
                 <img className="w-full h-72" src="https://images.unsplash.com/photo-1750173588085-895136c6e0a5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
             </div>

@@ -2,13 +2,13 @@ import { Bookmark, Heart, MessageCircle } from "lucide-react"
 
 const LatestBlogCard = () => {
     return (
-        <div className="w-108 md:w-full min-h-[520px] md:h-[520px] mt-5 md:flex rounded-2xl md:overflow-auto overflow-hidden ">
+        <div className=" md:w-full min-h-[520px] md:h-[550px] mt-5 md:flex rounded-2xl md:overflow-auto overflow-hidden  ">
             <div className="md:w-[60%] h-full">
                 <img src="https://images.unsplash.com/photo-1750173588085-895136c6e0a5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""
                     className="object-cover w-full h-full object-center" />
             </div>
-            <div className="md:w-[40%] h-full p-5 bg-zinc-800 flex flex-col gap-3">
-                <div className="flex items-center justify-between">
+            <div className="md:w-[40%] h-full p-5 bg-zinc-800 flex flex-col gap-3" >
+                <div className="flex items-center justify-between md:my-3">
                     <p className="text-black font-medium font-[Clash_Display] text-xs md:text-sm p-3 py-1 rounded-full bg-amber-500 w-fit">Creative</p>
                     <p className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@username</p>
                 </div>

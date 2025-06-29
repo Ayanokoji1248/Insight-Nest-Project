@@ -16,7 +16,7 @@ const BlogPage = () => {
                     <LatestBlogCard />
                 </div>
 
-                <div className="flex flex-wrap justify-center md:justify-between items-center space-y-8">
+                <div className="flex flex-wrap justify-center md:justify-between items-center gap-4">
                     <BlogCard />
                     <BlogCard />
                     <BlogCard />
