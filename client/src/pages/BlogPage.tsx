@@ -1,4 +1,4 @@
-import BlogCard from "../components/BLogCard"
+import BlogCard from "../components/BlogCard"
 import LatestBlogCard from "../components/LatestBlogCard"
 import NavBar from "../components/NavBar"
 
