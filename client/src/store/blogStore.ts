@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type BlogType = {
+export interface BlogType {
     _id: string,
     title: string,
     content: string,
@@ -12,7 +12,7 @@ export type BlogType = {
     tags?: string[]
 }
 
-type BlogStore = {
+interface BlogStore {
     blogs: BlogType[],
     addBlog: (newBlog: BlogType) => void;
     deleteBlog: (blogId: string) => void;

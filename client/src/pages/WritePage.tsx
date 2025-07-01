@@ -8,6 +8,7 @@ import { uploadImage } from "../utils/uploadImage";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import userStore from "../store/userStore";
 
 
 Quill.register("modules/imageUploader", ImageUploader)
@@ -44,6 +45,8 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const WritePage = () => {
 
     const navigate = useNavigate();
+
+    const { user } = userStore()
 
     const [category, setCategory] = useState("")
     const [title, setTitle] = useState("");
@@ -85,7 +88,7 @@ const WritePage = () => {
         const tempTag = tags.filter((tag) => tag !== t)
         setTags(tempTag);
     }
-
+    console.log(user)
     return (
         <>
             <NavBar />
