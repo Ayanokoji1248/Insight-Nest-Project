@@ -5,7 +5,7 @@ const blogRouter = Router();
 
 blogRouter.post('/create', userMiddleware, createBlog)
 
-blogRouter.get('/all', userMiddleware, getAllBlog)
+blogRouter.get('/all', getAllBlog)
 
 blogRouter.get('/myblogs', userMiddleware, getUserBlog)
 
