@@ -64,7 +64,7 @@ const FormModal = () => {
                 password: password.current?.value,
             }, { withCredentials: true })
 
-            console.log(response.data)
+            // console.log(response.data)
 
             setUser(response.data.user)
             setTimeout(() => {
@@ -80,7 +80,7 @@ const FormModal = () => {
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer position="top-right" />
             <div className="absolute bg-white w-96 rounded-xl z-40 backdrop-opacity-70 flex flex-col justify-between p-6 pt-3">
                 <div className="w-full flex justify-end mb-3">
                     <button className="w-fit h-fit flex justify-end text-xl font-[Clash_Display] text-zinc-500 p-1 px-3 hover:bg-black transition-all hover:text-white duration-500 rounded-full  cursor-pointer"

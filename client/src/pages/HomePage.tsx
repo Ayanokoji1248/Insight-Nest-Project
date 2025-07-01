@@ -16,7 +16,7 @@ const HomePage = () => {
                 </div>
             }
             <NavBar />
-            <div className="pt-20 px-32 w-full h-screen bg-[#FFC300]">HomePage</div>
+            <div className="pt-20 px-32 w-full h-screen bg-gradient-to-b from-[#fdeb71] to-[#f8d800]">HomePage</div>
         </div>
     )
 }

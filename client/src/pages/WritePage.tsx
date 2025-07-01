@@ -23,20 +23,20 @@ const modules = {
         ["clean"],
     ],
     // Error in quill upload image in text editor
-    imageUploader: {
-        upload: async (file: File) => {
-            try {
-                setTimeout(async () => {
-                    const url = await uploadImage(file as File);
-                    console.log(url)
-                    return url // this url will be inserted into quill automatic
-                }, 3000)
-            } catch (error) {
-                console.log(error)
-                throw error;
-            }
-        }
-    }
+    // imageUploader: {
+    //     upload: async (file: File) => {
+    //         try {
+    //             setTimeout(async () => {
+    //                 const url = await uploadImage(file as File);
+    //                 console.log(url)
+    //                 return url // this url will be inserted into quill automatic
+    //             }, 3000)
+    //         } catch (error) {
+    //             console.log(error)
+    //             throw error;
+    //         }
+    //     }
+    // }
 };
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -49,6 +49,8 @@ const WritePage = () => {
     const [title, setTitle] = useState("");
     const [image, setImage] = useState<File | undefined>();
     const [value, setValue] = useState("");
+    const [tags, setTags] = useState<string[]>([]);
+    const [tag, setTag] = useState("")
 
 
     const handleSubmit = async () => {
@@ -58,7 +60,8 @@ const WritePage = () => {
                 title,
                 content: value,
                 image: imageUrl,
-                category: category
+                category: category,
+                tags
             }, { withCredentials: true })
             setTitle("");
             setCategory("");
@@ -69,6 +72,18 @@ const WritePage = () => {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const addTag = () => {
+        if (tag.trim() !== "") {
+            setTags((prevTags) => [...prevTags, tag.trim()]);
+            setTag("");
+        }
+    }
+
+    const deleteTag = (t: string) => {
+        const tempTag = tags.filter((tag) => tag !== t)
+        setTags(tempTag);
     }
 
     return (
@@ -106,6 +121,25 @@ const WritePage = () => {
                     <div className="hidden">
                         Preview of CoverImage
                     </div>
+
+                    <div className="flex items-center gap-5">
+                        <label htmlFor="tags" className="font-[Albert_Sans] font-semibold tracking-tight">Add Tags:</label>
+                        <input value={tag} onChange={(e) => setTag(e.target.value)} type="text" className="font-[Albert_Sans] outline-none font-semibold tracking-tight border-[1px] p-3 text-sm rounded-md border-indigo-950  focus:ring-[1px] transition-all duration-300" placeholder="Enter tag" onKeyDown={(e) => {
+                            if (e.key == "Enter") {
+                                e.preventDefault()
+                                addTag()
+                            }
+                        }} />
+                        <button onClick={addTag} className="py-1 px-3 bg-blue-500 text-white rounded-full text-sm">Add</button>
+                    </div>
+                    {tags?.length > 0 &&
+                        <div className="flex flex-wrap gap-2">
+                            {tags.map((tag) => (
+                                <span className="text-sm px-2 py-1 rounded-full text-zinc-700 bg-zinc-200 flex items-center w-fit gap-2">#{tag} <button onClick={() => deleteTag(tag)} className="cursor-pointer bg-red-500 rounded-full px-1.5 text-white font-medium">x</button></span>
+
+                            ))}
+                        </div>
+                    }
 
                     <div>
                         <ReactQuill theme="snow" value={value} onChange={setValue} modules={modules} />
