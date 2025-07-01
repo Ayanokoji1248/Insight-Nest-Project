@@ -55,7 +55,7 @@ const getUserBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 exports.getUserBlog = getUserBlog;
 const getAllBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const blogs = yield blog_model_1.default.find({});
+        const blogs = yield blog_model_1.default.find({}).populate("user", "username");
         res.status(200).json({
             blogs
         });

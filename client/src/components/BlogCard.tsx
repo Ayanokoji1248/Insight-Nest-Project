@@ -2,7 +2,7 @@ import { Bookmark, Heart, MessageCircle } from "lucide-react"
 import type { BlogProp } from "./LatestBlogCard"
 
 
-const BlogCard = ({ title, image, content, category, tags }: BlogProp) => {
+const BlogCard = ({ title, image, content, category, tags, user }: BlogProp) => {
     return (
         <div className="border-[1px] border-zinc-300 shadow-xl md:w-96 min-h-[520px] rounded-xl overflow-hidden">
             <div>
@@ -11,7 +11,7 @@ const BlogCard = ({ title, image, content, category, tags }: BlogProp) => {
             <div className="flex flex-col gap-3 p-5 pt-3">
                 <div className="flex items-center justify-between">
                     <p className="text-black font-medium font-[Clash_Display] text-xs md:text-sm p-3 py-1 rounded-full bg-amber-500 w-fit">{category}</p>
-                    <p className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@username</p>
+                    <p className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@{user.username}</p>
                 </div>
                 <h1 className="text-4xl md:text-3xl font-semibold font-[Clash_Display] ">{title}</h1>
                 <p className="text-sm font-[Albert_Sans]">{content.replace(/<[^>]*>?/gm, "")}</p>

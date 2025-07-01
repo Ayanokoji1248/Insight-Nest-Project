@@ -1,6 +1,9 @@
 import { Bookmark, Heart, MessageCircle } from "lucide-react"
 
 export interface BlogProp {
+    user: {
+        username: string
+    }
     _id: string,
     image: string,
     title: string,
@@ -10,7 +13,7 @@ export interface BlogProp {
 
 }
 
-const LatestBlogCard = ({ image, title, content, category, tags }: BlogProp) => {
+const LatestBlogCard = ({ image, title, content, category, tags, user }: BlogProp) => {
     return (
         <div className=" md:w-full min-h-[520px] md:h-[550px] mt-5 md:flex rounded-2xl md:overflow-auto overflow-hidden  ">
             <div className="md:w-[60%] h-[400px] md:h-full">
@@ -20,7 +23,7 @@ const LatestBlogCard = ({ image, title, content, category, tags }: BlogProp) => 
             <div className="md:w-[40%] h-full p-5 bg-zinc-800 flex flex-col gap-3" >
                 <div className="flex items-center justify-between md:my-3">
                     <p className="text-black font-medium font-[Clash_Display] text-xs md:text-sm p-3 py-1 rounded-full bg-amber-500 w-fit">{category}</p>
-                    <p className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@username</p>
+                    <p className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@{user.username}</p>
                 </div>
                 <h1 className="text-4xl md:text-6xl font-semibold font-[Clash_Display] text-white">{title.substring(0, 30)} ...</h1>
                 <p className="text-sm text-zinc-300 font-[Albert_Sans]">{content.replace(/<[^>]*>?/gm, "").substring(0, 450)}<span className="font-black font-[Albert_Sans]"> Read More...</span></p>

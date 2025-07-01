@@ -57,7 +57,8 @@ const BlogPage = () => {
                             image={latestBlog.image}
                             content={latestBlog.content}
                             category={latestBlog.category}
-                            tags={latestBlog.tags} />
+                            tags={latestBlog.tags}
+                            user={latestBlog.user} />
                         : <h1>Loading...</h1>}
                 </div>
 
@@ -73,7 +74,9 @@ const BlogPage = () => {
                                     image={blog.image}
                                     content={blog.content}
                                     category={blog.category}
-                                    tags={blog.tags} />
+                                    tags={blog.tags}
+                                    user={blog.user}
+                                />
                             ))
                             :
                             <h1>Loading...</h1>
