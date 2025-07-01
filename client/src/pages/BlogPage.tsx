@@ -1,12 +1,38 @@
+import { useEffect, useState } from "react"
 import BlogCard from "../components/BlogCard"
 import FormModal from "../components/FormModal"
-import LatestBlogCard from "../components/LatestBlogCard"
+import LatestBlogCard, { type BlogProp } from "../components/LatestBlogCard"
 import NavBar from "../components/NavBar"
 import userModalStore from "../store/userModalStore"
+import axios from "axios"
+import blogStore from "../store/blogStore"
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 const BlogPage = () => {
     const { isOpen } = userModalStore();
+    const { setBlog } = blogStore();
+
+    const [latestBlog, setLatestBlog] = useState<BlogProp>();
+    const [regularBlog, setRegularBlog] = useState<BlogProp[]>([]);
+
+    const getAllBlog = async () => {
+        try {
+            const response = await axios.get(`${BACKEND_URL}/blog/all`, {
+                withCredentials: true
+            });
+            console.log(response.data.blogs)
+            setBlog(response.data.blogs)
+            setLatestBlog(response.data.blogs[0]);
+            setRegularBlog(response.data.blogs.slice(1))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getAllBlog()
+    }, [])
 
     return (
         <>
@@ -24,13 +50,34 @@ const BlogPage = () => {
                     <h1 className="text-3xl w-fit font-semibold font-[Clash_Display] pl-4 border-l-8 border-amber-300">Lastest Blog</h1>
                 </div>
                 <div className=" flex flex-col items-center pb-6">
-                    <LatestBlogCard />
+                    {latestBlog ?
+                        <LatestBlogCard
+                            _id={latestBlog._id}
+                            title={latestBlog.title}
+                            image={latestBlog.image}
+                            content={latestBlog.content}
+                            category={latestBlog.category}
+                            tags={latestBlog.tags} />
+                        : <h1>Loading...</h1>}
                 </div>
 
                 <div className="flex flex-wrap justify-center md:justify-between items-center gap-4">
-                    <BlogCard />
-                    <BlogCard />
-                    <BlogCard />
+
+                    {
+                        regularBlog ?
+                            regularBlog.map((blog) => (
+                                <BlogCard
+                                    key={blog._id}
+                                    _id={blog._id}
+                                    title={blog.title}
+                                    image={blog.image}
+                                    content={blog.content}
+                                    category={blog.category}
+                                    tags={blog.tags} />
+                            ))
+                            :
+                            <h1>Loading...</h1>
+                    }
                 </div>
             </div>
         </>

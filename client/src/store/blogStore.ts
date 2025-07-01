@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type BlogType = {
+export type BlogType = {
     _id: string,
     title: string,
     content: string,
@@ -16,6 +16,7 @@ type BlogStore = {
     blogs: BlogType[],
     addBlog: (newBlog: BlogType) => void;
     deleteBlog: (blogId: string) => void;
+    setBlog: (blogs: BlogType[]) => void;
 }
 
 const blogStore = create<BlogStore>((set) => ({
@@ -25,7 +26,9 @@ const blogStore = create<BlogStore>((set) => ({
 
     deleteBlog: (blogId) => set((state) => ({
         blogs: state.blogs.filter((blog) => blog._id !== blogId)
-    }))
+    })),
+
+    setBlog: (blogs) => set({ blogs })
 
 }))
 
