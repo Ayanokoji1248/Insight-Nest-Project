@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.registerUser = void 0;
+exports.logout = exports.loginUser = exports.registerUser = void 0;
 const zod_1 = require("zod");
 const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -130,3 +130,20 @@ const loginUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.loginUser = loginUser;
+const logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true
+        });
+        res.status(200).json({
+            message: "Logged out successfully",
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+        return;
+    }
+});
+exports.logout = logout;

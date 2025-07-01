@@ -11,21 +11,12 @@ type User = {
 }
 
 type userType = {
-    user: User
-    setUser: (newUser: User) => void;
+    user: User | null
+    setUser: (newUser: User | null) => void;
 }
 
 const userStore = create<userType>((set) => ({
-    user: {
-        fullName: "",
-        username: "",
-        email: "",
-        avatar: "",
-        blog: [],
-        follower: [],
-        following: []
-
-    },
+    user: null,
     setUser: (newUser) => set({ user: newUser })
 }))
 
