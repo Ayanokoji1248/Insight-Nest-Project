@@ -33,7 +33,7 @@ const blogSchema = new Schema({
     category: {
         type: String,
         required: true,
-        enum: ["Technology", "Health", "Lifestyle", "Education", "Travel", "Finance", "Entertainment", "Business"]
+        enum: ["Technology", "Health", "Lifestyle", "Education", "Travel", "Finance", "Entertainment", "Business", "Development"]
     }
 }, {
     timestamps: true

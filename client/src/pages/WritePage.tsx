@@ -1,9 +1,16 @@
 import { useState } from "react"
 import NavBar from "../components/NavBar"
 import "highlight.js/styles/github.css";
-import ReactQuill from "react-quill-new"
+import ReactQuill, { Quill } from "react-quill-new"
+import ImageUploader from "quill-image-uploader"
 import 'react-quill-new/dist/quill.snow.css';
+import { uploadImage } from "../utils/uploadImage";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
+
+Quill.register("modules/imageUploader", ImageUploader)
 const modules = {
 
     toolbar: [
@@ -15,14 +22,54 @@ const modules = {
         ["link", "image"],
         ["clean"],
     ],
+    // Error in quill upload image in text editor
+    imageUploader: {
+        upload: async (file: File) => {
+            try {
+                setTimeout(async () => {
+                    const url = await uploadImage(file as File);
+                    console.log(url)
+                    return url // this url will be inserted into quill automatic
+                }, 3000)
+            } catch (error) {
+                console.log(error)
+                throw error;
+            }
+        }
+    }
 };
 
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const WritePage = () => {
-    const [category, setCategory] = useState("")
 
+    const navigate = useNavigate();
+
+    const [category, setCategory] = useState("")
+    const [title, setTitle] = useState("");
+    const [image, setImage] = useState<File | undefined>();
     const [value, setValue] = useState("");
+
+
+    const handleSubmit = async () => {
+        const imageUrl = await uploadImage(image as File);
+        try {
+            const response = await axios.post(`${BACKEND_URL}/blog/create`, {
+                title,
+                content: value,
+                image: imageUrl,
+                category: category
+            }, { withCredentials: true })
+            setTitle("");
+            setCategory("");
+            setValue("")
+            setImage(undefined)
+            toast.success(response.data.message);
+            navigate('/blog')
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -36,20 +83,25 @@ const WritePage = () => {
                     <div className="flex flex-col md:flex-row md:w-full gap-5">
                         <div className="flex flex-col md:w-full gap-1">
                             <label htmlFor="title" className="font-[Albert_Sans] font-semibold tracking-tight">Title:</label>
-                            <input type="text" placeholder="Enter your title" className="font-[Albert_Sans] outline-none font-medium tracking-tight border-[1px] p-3 text-sm rounded-md border-indigo-950 focus:ring-[1px] transition-all duration-300" />
+                            <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Enter your title" className="font-[Albert_Sans] outline-none font-medium tracking-tight border-[1px] p-3 text-sm rounded-md border-indigo-950 focus:ring-[1px] transition-all duration-300" />
                         </div>
                         <div className="flex flex-col md:w-full gap-1">
                             <label htmlFor="category" className="font-[Albert_Sans] font-semibold tracking-tight">Select category:</label>
                             <select name="category" id="category" className="p-3 border-[1px] rounded-md border-sky-950 text-sm text-zinc-500 outline-none focus:ring-[1px] transition-all duration-300" value={category} onChange={(e) => setCategory(e.target.value)}>
                                 <option value="" disabled hidden>Select your Category</option>
-                                <option value="health" className="text-[Albert_Sans] text-sm">Health</option>
-                                <option value="development" className="text-[Albert_Sans] text-sm">Development</option>
+                                <option value="Health" className="text-[Albert_Sans] text-sm">Health</option>
+                                <option value="Development" className="text-[Albert_Sans] text-sm">Development</option>
                             </select>
                         </div>
                     </div>
                     <div className="flex flex-col gap-2 md:block md:space-x-4">
                         <label htmlFor="image" className="font-[Albert_Sans] font-semibold tracking-tight">Select Cover Image:</label>
-                        <input type="file" className="font-[Albert_Sans] outline-none font-semibold tracking-tight border-[1px] p-3 text-sm rounded-md border-indigo-950  cursor-pointer focus:ring-[1px] transition-all duration-300" />
+                        <input onChange={(e) => {
+                            const image = e.target.files?.[0]
+                            if (image) {
+                                setImage(image)
+                            }
+                        }} type="file" className="font-[Albert_Sans] outline-none font-semibold tracking-tight border-[1px] p-3 text-sm rounded-md border-indigo-950  cursor-pointer focus:ring-[1px] transition-all duration-300" />
                     </div>
                     <div className="hidden">
                         Preview of CoverImage
@@ -59,7 +111,7 @@ const WritePage = () => {
                         <ReactQuill theme="snow" value={value} onChange={setValue} modules={modules} />
                     </div>
 
-                    <button className="px-4 py-2 w-fit bg-amber-300 rounded-lg font-[Clash_Display] font-semibold text-md cursor-pointer hover:ring-[1px] transition-all duration-300">Submit</button>
+                    <button onClick={handleSubmit} className="px-4 py-2 w-fit bg-amber-300 rounded-lg font-[Clash_Display] font-semibold text-md cursor-pointer hover:ring-[1px] transition-all duration-300">Submit</button>
 
                 </div>
             </div>

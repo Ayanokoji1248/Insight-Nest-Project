@@ -94,7 +94,6 @@ const loginUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function
             return;
         }
         const user = yield user_model_1.default.findOne({ email });
-        console.log(user);
         if (!user) {
             res.status(400).json({
                 message: "Credentials Invalid"
