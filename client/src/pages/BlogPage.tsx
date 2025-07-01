@@ -1,12 +1,23 @@
 import BlogCard from "../components/BlogCard"
+import FormModal from "../components/FormModal"
 import LatestBlogCard from "../components/LatestBlogCard"
 import NavBar from "../components/NavBar"
+import userModalStore from "../store/userModalStore"
 
 
 const BlogPage = () => {
+    const { isOpen } = userModalStore();
+
     return (
         <>
             <NavBar />
+            {isOpen &&
+                <div className="w-full h-screen flex justify-center items-center fixed">
+
+                    <FormModal />
+                    <div className="w-full h-screen bg-gray-500 absolute z-10 opacity-60"></div>
+                </div>
+            }
             <div className="max-w-7xl mx-auto min-h-screen pt-24 pb-6">
                 <div className="w-full flex justify-start px-5 md:px-0">
 
