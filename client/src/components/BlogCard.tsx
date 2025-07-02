@@ -1,8 +1,10 @@
 import { Bookmark, Heart, MessageCircle } from "lucide-react"
 import type { BlogProp } from "./LatestBlogCard"
+import { NavLink } from "react-router-dom"
 
 
-const BlogCard = ({ title, image, content, category, tags, user, likes, comments }: BlogProp) => {
+
+const BlogCard = ({ _id, title, image, content, category, tags, user, likes, comments }: BlogProp) => {
     return (
         <div className="border-[1px] border-zinc-300 shadow-xl md:w-96 min-h-[520px] rounded-xl overflow-hidden">
             <div>
@@ -14,7 +16,7 @@ const BlogCard = ({ title, image, content, category, tags, user, likes, comments
                     <p className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@{user.username}</p>
                 </div>
                 <h1 className="text-4xl md:text-3xl font-semibold font-[Clash_Display] ">{title}</h1>
-                <p className="text-sm font-[Albert_Sans]">{content.replace(/<[^>]*>?/gm, "")}</p>
+                <p className="text-sm font-[Albert_Sans]">{content.replace(/<[^>]*>?/gm, "").substring(0, 200)} <NavLink to={`/blog/${_id}`} className={"font-bold cursor-pointer"}>...Read More</NavLink></p>
                 <div className="flex gap-3 mt-2">
                     {tags.length > 0 &&
                         tags.map((tag) => (
