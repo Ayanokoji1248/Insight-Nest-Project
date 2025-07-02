@@ -9,7 +9,8 @@ blogRouter.get('/all', getAllBlog)
 
 blogRouter.get('/myblogs', userMiddleware, getUserBlog)
 
-blogRouter.get('/:id', userMiddleware, getBlog)
+// Unauthenticated person can view
+blogRouter.get('/:id', getBlog)
 
 blogRouter.put('/edit/:id', userMiddleware, editBlog)
 
