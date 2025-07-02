@@ -13,6 +13,7 @@ export interface BlogProp {
     tags: string[],
     likes: string[],
     comments: string[],
+    createdAt: string
 
 }
 

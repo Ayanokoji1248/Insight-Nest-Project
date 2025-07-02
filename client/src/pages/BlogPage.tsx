@@ -60,7 +60,9 @@ const BlogPage = () => {
                             tags={latestBlog.tags}
                             user={latestBlog.user}
                             likes={latestBlog.likes}
-                            comments={latestBlog.comments} />
+                            comments={latestBlog.comments}
+                            createdAt={latestBlog.createdAt}
+                        />
                         : <h1>Loading...</h1>}
                 </div>
 
@@ -80,6 +82,7 @@ const BlogPage = () => {
                                     likes={blog.likes}
                                     comments={blog.comments}
                                     user={blog.user}
+                                    createdAt={blog.createdAt}
                                 />
                             ))
                             :

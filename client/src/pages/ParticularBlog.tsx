@@ -8,12 +8,14 @@ import { type BlogProp } from "../components/LatestBlogCard";
 import { Parser } from "html-to-react"
 import DOMPurify from "dompurify"
 import { BookmarkIcon, HeartIcon, MessageCircle } from "lucide-react";
+import userStore from "../store/userStore";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ParticularBlog = () => {
 
     const { id } = useParams();
-    const { isOpen } = userModalStore()
+    const { isOpen, openModal } = userModalStore()
+    const { user } = userStore();
 
     const [blog, setBlog] = useState<BlogProp>();
 
@@ -32,6 +34,15 @@ const ParticularBlog = () => {
     useEffect(() => {
         getBlog()
     }, [id])
+
+    const checkSubmitComment = () => {
+        if (user) {
+            console.log("User can comment")
+        }
+        else {
+            openModal()
+        }
+    }
 
     if (!blog) return <div>{id} Blog Not Found</div>
 
@@ -60,7 +71,7 @@ const ParticularBlog = () => {
                             <button className="bg-amber-300 font-[Albert_Sans] font-semibold tracking-tight px-3 rounded-full">Follow</button>
                         </div>
                         <div className="font-semibold font-[Albert_Sans] text-sm">
-                            12 FEB 2025
+                            {blog.createdAt.slice(0,10)}
                         </div>
                     </div>
                     <div className="flex items-center mt-2 gap-5">
@@ -84,7 +95,7 @@ const ParticularBlog = () => {
                     <div className="flex flex-col gap-10  p-5">
                         {/* <p className="text-sm text-zinc-400 font-[Albert_Sans]">Be first one to comment</p>
                          */}
-                         {/* Comment Card With edit and delete button */}
+                        {/* Comment Card With edit and delete button */}
                         <div className="flex gap-3 items-center">
                             <div className="w-12 h-12 shrink-0 bg-black rounded-full"></div>
                             <div className="flex flex-col leading-none">
@@ -110,10 +121,10 @@ const ParticularBlog = () => {
                     </div>
 
                     <div className="w-full mt-3 flex flex-col gap-3">
-                            {/* Input for Comment */}
-                            {/* <label htmlFor="comment" className="">Enter Comment</label> */}
-                            <textarea name="comment" id="comment" className="w-full h-32 p-2 font-[Albert_Sans] outline-none border-[1px] border-zinc-500 rounded-md resize-none" placeholder="Enter your opinion..."></textarea>
-                            <button className="bg-blue-500 w-fit text-white px-4 py-2 rounded-md">Submit</button>
+                        {/* Input for Comment */}
+                        {/* <label htmlFor="comment" className="">Enter Comment</label> */}
+                        <textarea name="comment" id="comment" className="w-full h-32 p-2 font-[Albert_Sans] outline-none border-[1px] border-zinc-500 rounded-md resize-none" placeholder="Enter your opinion..."></textarea>
+                        <button onClick={checkSubmitComment} className="bg-blue-500 w-fit text-white px-4 py-2 rounded-md">Submit</button>
                     </div>
                 </div>
             </div>
