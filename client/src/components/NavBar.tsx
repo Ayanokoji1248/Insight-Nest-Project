@@ -74,6 +74,8 @@ const NavBar = () => {
                         {visible && (
                             <div className="absolute top-12 left-8 bg-zinc-200 px-3 py-2 flex flex-col gap-3 rounded-md transition-all duration-300 ease-in-out">
                                 <NavigationLink to="/profile" text="Profile" />
+                                <NavigationLink to="/blog" text="Blogs"/>
+                                <NavigationLink to="/write" text="Write"/>
                                 <button onClick={() => logoutUser()} className="cursor-pointer">Logout</button>
                             </div>
                         )}

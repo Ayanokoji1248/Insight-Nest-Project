@@ -76,6 +76,46 @@ const ParticularBlog = () => {
                     <div>
                         <p className="font-medium font-[Albert_Sans] text-lg">{Parser().parse(DOMPurify.sanitize(blog.content))}</p></div>
                 </div>
+                <hr className="text-zinc-300" />
+                <div className="mt-3">
+                    <div>
+                        <h1 className="text-xl text-zinc-500 font-[Albert_Sans] font-medium tracking-tighter">Comments:</h1>
+                    </div>
+                    <div className="flex flex-col gap-10  p-5">
+                        {/* <p className="text-sm text-zinc-400 font-[Albert_Sans]">Be first one to comment</p>
+                         */}
+                         {/* Comment Card With edit and delete button */}
+                        <div className="flex gap-3 items-center">
+                            <div className="w-12 h-12 shrink-0 bg-black rounded-full"></div>
+                            <div className="flex flex-col leading-none">
+                                <h1 className="font-[Albert_Sans] font-semibold text-lg">{blog.user.username}</h1>
+                                <p className="font-[Albert_Sans] tracking-tight text-zinc-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius ducimus quam laboriosam, pariatur molestias quidem suscipit aperiam iusto sit perspiciatis. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur vitae, veritatis consequuntur blanditiis explicabo nihil officia debitis repudiandae suscipit error!</p>
+                                {/* <div className="flex gap-3 mt-3">
+                                    <button className="font-[Albert_Sans] font-semibold bg-blue-500 text-white px-2 py-1 text-sm rounded-md ">Edit</button>
+                                    <button className="font-[Albert_Sans] font-semibold bg-red-500 text-white px-2 py-1 text-sm rounded-md">Delete</button>
+                                </div> */}
+                            </div>
+                        </div>
+                        <div className="flex gap-3 items-center">
+                            <div className="w-12 h-12 shrink-0 bg-black rounded-full"></div>
+                            <div className="flex flex-col leading-none">
+                                <h1 className="font-[Albert_Sans] font-semibold text-lg">{blog.user.username}</h1>
+                                <p className="font-[Albert_Sans] tracking-tight text-zinc-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam quam velit aut!</p>
+                                <div className="flex gap-3 mt-3">
+                                    <button className="font-[Albert_Sans] font-semibold bg-blue-500 text-white px-2 py-1 text-sm rounded-md ">Edit</button>
+                                    <button className="font-[Albert_Sans] font-semibold bg-red-500 text-white px-2 py-1 text-sm rounded-md">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="w-full mt-3 flex flex-col gap-3">
+                            {/* Input for Comment */}
+                            {/* <label htmlFor="comment" className="">Enter Comment</label> */}
+                            <textarea name="comment" id="comment" className="w-full h-32 p-2 font-[Albert_Sans] outline-none border-[1px] border-zinc-500 rounded-md resize-none" placeholder="Enter your opinion..."></textarea>
+                            <button className="bg-blue-500 w-fit text-white px-4 py-2 rounded-md">Submit</button>
+                    </div>
+                </div>
             </div>
         </>
     )

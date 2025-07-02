@@ -1,8 +1,7 @@
 import { useState } from "react"
 import NavBar from "../components/NavBar"
 import "highlight.js/styles/github.css";
-import ReactQuill, { Quill } from "react-quill-new"
-import ImageUploader from "quill-image-uploader"
+import ReactQuill from "react-quill-new"
 import 'react-quill-new/dist/quill.snow.css';
 import { uploadImage } from "../utils/uploadImage";
 import axios from "axios";
@@ -11,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import userStore from "../store/userStore";
 
 
-Quill.register("modules/imageUploader", ImageUploader)
 const modules = {
 
     toolbar: [
