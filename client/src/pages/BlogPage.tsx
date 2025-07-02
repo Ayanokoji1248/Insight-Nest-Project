@@ -58,7 +58,9 @@ const BlogPage = () => {
                             content={latestBlog.content}
                             category={latestBlog.category}
                             tags={latestBlog.tags}
-                            user={latestBlog.user} />
+                            user={latestBlog.user}
+                            likes={latestBlog.likes}
+                            comments={latestBlog.comments} />
                         : <h1>Loading...</h1>}
                 </div>
 
@@ -75,6 +77,8 @@ const BlogPage = () => {
                                     content={blog.content}
                                     category={blog.category}
                                     tags={blog.tags}
+                                    likes={blog.likes}
+                                    comments={blog.comments}
                                     user={blog.user}
                                 />
                             ))

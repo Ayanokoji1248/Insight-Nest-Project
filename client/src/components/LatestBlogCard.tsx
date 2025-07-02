@@ -10,10 +10,12 @@ export interface BlogProp {
     content: string,
     category: string,
     tags: string[],
+    likes: string[],
+    comments: string[],
 
 }
 
-const LatestBlogCard = ({ image, title, content, category, tags, user }: BlogProp) => {
+const LatestBlogCard = ({ image, title, content, category, tags, user, likes, comments }: BlogProp) => {
     return (
         <div className=" md:w-full min-h-[520px] md:h-[550px] mt-5 md:flex rounded-2xl md:overflow-auto overflow-hidden  ">
             <div className="md:w-[60%] h-[400px] md:h-full">
@@ -35,8 +37,8 @@ const LatestBlogCard = ({ image, title, content, category, tags, user }: BlogPro
 
                 </div>
                 <div className="flex items-center text-white gap-5 mt-5">
-                    <div className="flex items-center gap-4 hover:bg-red-500 transition-all duration-300 cursor-pointer rounded-md px-2 py-1"><Heart size={20} /> <p>23</p></div>
-                    <div className="flex items-center gap-4 hover:bg-blue-400 transition-all duration-300 rounded-md cursor-pointer px-2 py-1"><MessageCircle size={20} /><p>12</p></div>
+                    <div className="flex items-center gap-4 hover:bg-red-500 transition-all duration-300 cursor-pointer rounded-md px-2 py-1"><Heart size={20} /> <p>{likes.length}</p></div>
+                    <div className="flex items-center gap-4 hover:bg-blue-400 transition-all duration-300 rounded-md cursor-pointer px-2 py-1"><MessageCircle size={20} /><p>{comments.length}</p></div>
                     <div className="flex items-center gap-4 px-2 py-1 hover:bg-amber-400 rounded-md cursor-pointer"><Bookmark size={20} /></div>
                 </div>
             </div>
