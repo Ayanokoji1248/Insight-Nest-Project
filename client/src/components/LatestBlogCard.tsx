@@ -28,7 +28,7 @@ const LatestBlogCard = ({ _id, image, title, content, category, tags, user, like
                     <p className="text-black font-medium font-[Clash_Display] text-xs md:text-sm p-3 py-1 rounded-full bg-amber-500 w-fit">{category}</p>
                     <p className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@{user.username}</p>
                 </div>
-                <h1 className="text-4xl md:text-6xl font-semibold font-[Clash_Display] text-white">{title.substring(0, 30)} ...</h1>
+                <NavLink to={`/blog/${_id}`} className="text-4xl md:text-6xl font-semibold font-[Clash_Display] text-white">{title.substring(0, 30)} ...</NavLink>
                 <p className="text-sm text-zinc-300 font-[Albert_Sans]">{content.replace(/<[^>]*>?/gm, "").substring(0, 450)}<NavLink to={`/blog/${_id}`} className="font-black font-[Albert_Sans] text-white"> Read More...</NavLink></p>
                 <div className="flex gap-3 mt-2">
                     {tags.length > 0 &&

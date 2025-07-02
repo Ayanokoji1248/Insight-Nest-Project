@@ -21,7 +21,7 @@ const BlogPage = () => {
             const response = await axios.get(`${BACKEND_URL}/blog/all`, {
                 withCredentials: true
             });
-            console.log(response.data.blogs)
+            // console.log(response.data.blogs)
             setBlog(response.data.blogs)
             setLatestBlog(response.data.blogs[0]);
             setRegularBlog(response.data.blogs.slice(1))
@@ -64,7 +64,7 @@ const BlogPage = () => {
                         : <h1>Loading...</h1>}
                 </div>
 
-                <div className="flex flex-wrap justify-center md:justify-between items-center gap-4">
+                <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 md:gap-12">
 
                     {
                         regularBlog ?

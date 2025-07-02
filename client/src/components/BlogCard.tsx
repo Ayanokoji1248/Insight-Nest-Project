@@ -15,7 +15,7 @@ const BlogCard = ({ _id, title, image, content, category, tags, user, likes, com
                     <p className="text-black font-medium font-[Clash_Display] text-xs md:text-sm p-3 py-1 rounded-full bg-amber-500 w-fit">{category}</p>
                     <p className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@{user.username}</p>
                 </div>
-                <h1 className="text-4xl md:text-3xl font-semibold font-[Clash_Display] ">{title}</h1>
+                <NavLink to={`/blog/${_id}`} className="text-4xl md:text-3xl font-semibold font-[Clash_Display] ">{title.substring(0, 50)}...</NavLink>
                 <p className="text-sm font-[Albert_Sans]">{content.replace(/<[^>]*>?/gm, "").substring(0, 200)} <NavLink to={`/blog/${_id}`} className={"font-bold cursor-pointer"}>...Read More</NavLink></p>
                 <div className="flex gap-3 mt-2">
                     {tags.length > 0 &&

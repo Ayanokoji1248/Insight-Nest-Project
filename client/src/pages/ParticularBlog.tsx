@@ -32,7 +32,7 @@ const ParticularBlog = () => {
         getBlog()
     }, [id])
 
-    if (!blog) return <div>Blog Not Found</div>
+    if (!blog) return <div>{id} Blog Not Found</div>
 
     return (
         <>
