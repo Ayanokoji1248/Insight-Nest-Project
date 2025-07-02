@@ -64,7 +64,7 @@ const BlogPage = () => {
                         : <h1>Loading...</h1>}
                 </div>
 
-                <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 md:gap-12">
+                <div className="flex flex-wrap justify-center md:justify-start items-center gap-10 md:gap-12">
 
                     {
                         regularBlog ?
