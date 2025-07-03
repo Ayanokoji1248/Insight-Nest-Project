@@ -57,7 +57,9 @@ const createComment = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         const { id } = req.params;
         const userId = req.user;
         const { comment } = req.body;
-        const validate = commentSchema.safeParse(comment);
+        console.log(comment);
+        const validate = commentSchema.safeParse(req.body);
+        console.log(validate);
         if (!validate.success) {
             res.status(400).json({
                 errors: validate.error.flatten().fieldErrors

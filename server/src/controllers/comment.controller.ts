@@ -52,8 +52,11 @@ export const createComment = async (req: Request, res: Response, next: NextFunct
         const userId = req.user
         const { comment } = req.body
 
-        const validate = commentSchema.safeParse(comment);
+        console.log(comment);
 
+        //make sure you pass req.body or if i am not wrong you have to pass object {comment} like this if you want to pass comment
+        const validate = commentSchema.safeParse(req.body);
+        console.log(validate)
         if (!validate.success) {
             res.status(400).json({
                 errors: validate.error.flatten().fieldErrors
