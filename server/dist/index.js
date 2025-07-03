@@ -19,6 +19,7 @@ const auth_route_1 = __importDefault(require("./routes/auth.route"));
 const blog_route_1 = __importDefault(require("./routes/blog.route"));
 const comment_route_1 = __importDefault(require("./routes/comment.route"));
 const cors_1 = __importDefault(require("cors"));
+const user_route_1 = __importDefault(require("./routes/user.route"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -27,6 +28,7 @@ app.use((0, cors_1.default)({
     origin: "http://localhost:5173",
     credentials: true
 }));
+app.use('/api/user', user_route_1.default);
 app.use('/api/auth', auth_route_1.default);
 app.use('/api/blog', blog_route_1.default);
 app.use('/api/comment', comment_route_1.default);

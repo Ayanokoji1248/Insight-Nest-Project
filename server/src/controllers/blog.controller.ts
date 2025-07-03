@@ -47,6 +47,7 @@ export const getUserBlog = async (req: Request, res: Response, next: NextFunctio
 export const getAllBlog = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const blogs = await blogModel.find({}).populate("user", "username");
+        blogs.reverse()
         res.status(200).json({
             blogs
         })

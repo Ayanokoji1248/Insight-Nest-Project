@@ -56,6 +56,7 @@ exports.getUserBlog = getUserBlog;
 const getAllBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const blogs = yield blog_model_1.default.find({}).populate("user", "username");
+        blogs.reverse();
         res.status(200).json({
             blogs
         });
