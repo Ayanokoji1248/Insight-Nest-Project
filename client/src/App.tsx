@@ -30,6 +30,8 @@ const App = () => {
       }
     }
     userDetail()
+
+    console.log("From App")
   }, [])
 
   return (

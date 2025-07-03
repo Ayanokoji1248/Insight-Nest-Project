@@ -40,7 +40,7 @@ const LatestBlogCard = ({ _id, image, title, content, category, tags, user, like
                 </div>
                 <div className="flex items-center text-white gap-5 mt-5">
                     <div className="flex items-center gap-4 hover:bg-red-500 transition-all duration-300 cursor-pointer rounded-md px-2 py-1"><Heart size={20} /> <p>{likes.length}</p></div>
-                    <div className="flex items-center gap-4 hover:bg-blue-400 transition-all duration-300 rounded-md cursor-pointer px-2 py-1"><MessageCircle size={20} /><p>{comments.length}</p></div>
+                    <NavLink to={`/blog/${_id}`} className="flex items-center gap-4 hover:bg-blue-400 transition-all duration-300 rounded-md cursor-pointer px-2 py-1"><MessageCircle size={20} /><p>{comments.length}</p></NavLink>
                     <div className="flex items-center gap-4 px-2 py-1 hover:bg-amber-400 rounded-md cursor-pointer"><Bookmark size={20} /></div>
                 </div>
             </div>

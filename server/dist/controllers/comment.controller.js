@@ -166,8 +166,9 @@ const deleteComment = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         }
         const blogId = comment.blog;
         yield comment_model_1.default.findByIdAndDelete(id);
+        const commentObjectId = new mongoose_1.default.Types.ObjectId(id);
         yield blog_model_1.default.findByIdAndUpdate(blogId, {
-            $pull: { comments: new mongoose_1.default.Types.ObjectId(id) }
+            $pull: { comments: commentObjectId }
         });
         res.status(200).json({
             message: "Comment Deleted"

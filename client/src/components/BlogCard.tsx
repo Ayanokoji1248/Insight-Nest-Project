@@ -27,7 +27,7 @@ const BlogCard = ({ _id, title, image, content, category, tags, user, likes, com
                 </div>
                 <div className="flex items-center  gap-5 mt-5 border-t-[1px] border-zinc-200 pt-2">
                     <div className="flex items-center gap-4 hover:bg-red-500 hover:text-white transition-all duration-300 cursor-pointer rounded-md px-3 py-1"><Heart size={20} /> <p>{likes.length}</p></div>
-                    <div className="flex items-center gap-4 hover:bg-blue-400 hover:text-white transition-all duration-300 rounded-md cursor-pointer px-3 py-1"><MessageCircle size={20} /><p>{comments.length}</p></div>
+                    <NavLink to={`/blog/${_id}`} className="flex items-center gap-4 hover:bg-blue-400 hover:text-white transition-all duration-300 rounded-md cursor-pointer px-3 py-1"><MessageCircle size={20} /><p>{comments.length}</p></NavLink>
                     <div className="flex items-center gap-4 px-2 py-1 hover:bg-amber-400 hover:text-white rounded-md cursor-pointer"><Bookmark size={20} /></div>
                 </div>
             </div>

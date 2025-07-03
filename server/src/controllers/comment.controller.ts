@@ -185,9 +185,10 @@ export const deleteComment = async (req: Request, res: Response, next: NextFunct
 
         await commentModel.findByIdAndDelete(id)
 
+        const commentObjectId = new mongoose.Types.ObjectId(id)
 
         await blogModel.findByIdAndUpdate(blogId, {
-            $pull: { comments: new mongoose.Types.ObjectId(id) }
+            $pull: { comments: commentObjectId }
         });
 
 
