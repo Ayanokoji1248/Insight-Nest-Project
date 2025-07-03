@@ -31,7 +31,7 @@ const getallComments = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         }
         const comments = yield comment_model_1.default.find({
             blog: id
-        }).populate("user", "username fullName avatar");
+        }).populate("user", "username fullName avatar").sort({ createdAt: -1 });
         if (!comments || comments.length === 0) {
             res.status(400).json({
                 message: "No Comments"
@@ -57,10 +57,10 @@ const createComment = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         const { id } = req.params;
         const userId = req.user;
         const { comment } = req.body;
-        console.log(comment);
+        // console.log(comment);
         //make sure you pass req.body or if i am not wrong you have to pass object {comment} like this if you want to pass comment
         const validate = commentSchema.safeParse(req.body);
-        console.log(validate);
+        // console.log(validate)
         if (!validate.success) {
             res.status(400).json({
                 errors: validate.error.flatten().fieldErrors
@@ -89,13 +89,14 @@ const createComment = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         const commentData = yield comment_model_1.default.create({
             comment,
             user: userId,
-            blog: id
+            blog: id,
         });
+        const user_comment = yield commentData.populate("user", "_id username fullName");
         blog.comments.push(commentData._id);
         yield blog.save();
         res.status(201).json({
             message: "comment created",
-            comment: commentData
+            comment: user_comment,
         });
     }
     catch (error) {

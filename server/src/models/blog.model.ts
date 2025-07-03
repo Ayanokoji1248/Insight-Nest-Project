@@ -18,16 +18,16 @@ const blogSchema = new Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "user",
         required: true
     },
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "user"
     }],
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment"
+        ref: "comment"
     }],
     tags: [String],
     category: {
@@ -39,6 +39,6 @@ const blogSchema = new Schema({
     timestamps: true
 })
 
-const blogModel = mongoose.model("Blog", blogSchema);
+const blogModel = mongoose.model("blog", blogSchema);
 
 export default blogModel

@@ -4,7 +4,6 @@ import blogModel from "../models/blog.model";
 import commentModel from "../models/comment.model";
 import { z } from "zod";
 
-
 const commentSchema = z.object({
     comment: z.string().min(1, "Comment cannot be empty")
 })
@@ -22,7 +21,7 @@ export const getallComments = async (req: Request, res: Response, next: NextFunc
 
         const comments = await commentModel.find({
             blog: id
-        }).populate("user", "username fullName avatar");
+        }).populate("user", "username fullName avatar").sort({ createdAt: -1 });
 
         if (!comments || comments.length === 0) {
             res.status(400).json({
@@ -52,11 +51,11 @@ export const createComment = async (req: Request, res: Response, next: NextFunct
         const userId = req.user
         const { comment } = req.body
 
-        console.log(comment);
+        // console.log(comment);
 
         //make sure you pass req.body or if i am not wrong you have to pass object {comment} like this if you want to pass comment
         const validate = commentSchema.safeParse(req.body);
-        console.log(validate)
+        // console.log(validate)
         if (!validate.success) {
             res.status(400).json({
                 errors: validate.error.flatten().fieldErrors
@@ -91,16 +90,16 @@ export const createComment = async (req: Request, res: Response, next: NextFunct
         const commentData = await commentModel.create({
             comment,
             user: userId,
-            blog: id
-
+            blog: id,
         })
+        const user_comment = await commentData.populate("user", "_id username fullName")
 
         blog.comments.push(commentData._id)
         await blog.save();
 
         res.status(201).json({
             message: "comment created",
-            comment: commentData
+            comment: user_comment,
         })
 
 

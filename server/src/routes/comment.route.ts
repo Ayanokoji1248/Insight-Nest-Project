@@ -7,7 +7,7 @@ const commentRouter = Router()
 // Here the Id will be of blog
 commentRouter.post('/:id', userMiddleware, createComment)
 
-commentRouter.get('/:id', userMiddleware, getallComments)
+commentRouter.get('/:id', getallComments)
 
 commentRouter.put('/:id', userMiddleware, editComment)
 
