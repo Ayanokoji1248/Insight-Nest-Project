@@ -58,6 +58,7 @@ const createComment = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         const userId = req.user;
         const { comment } = req.body;
         console.log(comment);
+        //make sure you pass req.body or if i am not wrong you have to pass object {comment} like this if you want to pass comment
         const validate = commentSchema.safeParse(req.body);
         console.log(validate);
         if (!validate.success) {
