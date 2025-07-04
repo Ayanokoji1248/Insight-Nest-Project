@@ -100,6 +100,19 @@ const ParticularBlog = () => {
         }
     }
 
+    
+    // Dk know how to like/unlike post
+    // const likeBlog = async (blogId: string) => {
+    //     try {
+    //         const response = await axios.post(`${BACKEND_URL}/blog/like/${blogId}`, {}, {
+    //             withCredentials: true
+    //         });
+    //         console.log(response)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+
     useEffect(() => {
         getBlog()
         getComment()
@@ -140,8 +153,14 @@ const ParticularBlog = () => {
                         </div>
                     </div>
                     <div className="flex items-center mt-2 gap-5">
-                        <p className="flex items-center font-[Albert_Sans] font-semibold gap-2"><HeartIcon size={22} className="text-red-500" /> 40 likes</p>
-                        <p className="flex items-center font-[Albert_Sans] font-semibold gap-2"><MessageCircle size={22} className="text-blue-500" /> 40 comments</p>
+                        <p className="flex items-center font-[Albert_Sans] font-semibold gap-2">
+                            <button >
+                                <HeartIcon size={22} className="text-red-400 hover:fill-red-500 transition-all duration-300 cursor-pointer" />
+                            </button>
+                            {blog.likes.length} likes
+                        </p>
+                        <p className="flex items-center font-[Albert_Sans] font-semibold gap-2">
+                            <MessageCircle size={22} className="text-blue-500" />{blog.comments.length} {blog.comments.length > 1 ? "comments" : "comment"} </p>
                         <p className="flex items-center font-[Albert_Sans] gap-2"><BookmarkIcon size={22} className="text-yellow-500" /> </p>
                     </div>
                 </div>
@@ -189,7 +208,7 @@ const ParticularBlog = () => {
 
 
                 </div>
-            </div>
+            </div >
         </>
     )
 }

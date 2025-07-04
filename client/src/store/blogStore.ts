@@ -17,6 +17,7 @@ interface BlogStore {
     addBlog: (newBlog: BlogType) => void;
     deleteBlog: (blogId: string) => void;
     setBlog: (blogs: BlogType[]) => void;
+    // blogLike: (blogId: string) => void;
 }
 
 const blogStore = create<BlogStore>((set) => ({
@@ -28,7 +29,26 @@ const blogStore = create<BlogStore>((set) => ({
         blogs: state.blogs.filter((blog) => blog._id !== blogId)
     })),
 
-    setBlog: (blogs) => set({ blogs })
+    setBlog: (blogs) => set({ blogs }),
+
+    // blogLike: (blogId) =>
+    //     set((state) => ({
+    //         blogs: state.blogs.map((blog) => {
+    //             if (blog._id === blogId) {
+    //                 const alreadyLiked = blog.like?.includes(userId);
+    //                 let updatedLikes;
+
+    //                 if (alreadyLiked) {
+    //                     updatedLikes = blog.like?.filter((id) => id !== userId);
+    //                 } else {
+    //                     updatedLikes = blog.like ? [...blog.like, userId] : [userId];
+    //                 }
+
+    //                 return { ...blog, like: updatedLikes };
+    //             }
+    //             return blog;
+    //         })
+    //     }))
 
 }))
 
