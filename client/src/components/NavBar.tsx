@@ -5,6 +5,7 @@ import NavigationLink from "./NavigationLink";
 import { Bell } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Button from "./Button";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
@@ -72,24 +73,30 @@ const NavBar = () => {
                         </div>
                         <div className="w-8 h-8 rounded-full bg-amber-400 cursor-pointer" onClick={() => setVisible((prev) => !prev)}></div>
                         {visible && (
-                            <div className="absolute top-12 left-8 bg-zinc-200 px-3 py-2 flex flex-col gap-3 rounded-md transition-all duration-300 ease-in-out">
+                            <div className="absolute top-12 left-1 md:left-8 bg-zinc-200 p-2 flex flex-col gap-2 items-center rounded-md transition-all duration-300 ease-in-out shadow-2xl shadow-black">
                                 <NavigationLink to="/profile" text="Profile" />
-                                <NavigationLink to="/blog" text="Blogs"/>
-                                <NavigationLink to="/write" text="Write"/>
-                                <button onClick={() => logoutUser()} className="cursor-pointer">Logout</button>
+                                <hr className="w-full border-zinc-400" />
+                                <NavigationLink to="/blog" text="Blogs" />
+                                <hr className="w-full border-zinc-400" />
+                                <NavigationLink to="/write" text="Write" />
+                                <hr className="w-full border-zinc-400" />
+                                <Button
+                                    text="Logout"
+                                    variant="danger"
+                                    size="sm"
+                                    onClick={logoutUser}
+                                />
                             </div>
                         )}
                     </div>
                 ) : (
-                    <button
-                        className="font-[Clash_Display] font-bold bg-amber-400 p-1.5 px-3 rounded-md cursor-pointer ring-blue-950 hover:ring-2 transition-all duration-300 ease-in-out"
-                        onClick={openModal}
-                    >
-                        Get Started
-                    </button>
+                    <Button
+                        text="Get Started"
+                        variant="secondary"
+                        onClick={openModal} />
                 )}
             </div>
-        </div>
+        </div >
     );
 };
 

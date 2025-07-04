@@ -8,6 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import userStore from "../store/userStore";
+import Button from "../components/Button";
 
 
 const modules = {
@@ -146,7 +147,13 @@ const WritePage = () => {
                         <ReactQuill theme="snow" value={value} onChange={setValue} modules={modules} />
                     </div>
 
-                    <button onClick={handleSubmit} className="px-4 py-2 w-fit bg-amber-300 rounded-lg font-[Clash_Display] font-semibold text-md cursor-pointer hover:ring-[1px] transition-all duration-300">Submit</button>
+                    {/* <button onClick={handleSubmit} className="px-4 py-2 w-fit bg-amber-300 rounded-lg font-[Clash_Display] font-semibold text-md cursor-pointer hover:ring-[1px] transition-all duration-300">Submit</button> */}
+                    <Button
+                        text="Submit"
+                        variant="secondary"
+                        widthFull={false}
+                        onClick={handleSubmit}
+                    />
 
                 </div>
             </div>

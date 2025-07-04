@@ -5,6 +5,7 @@ import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import { useNavigate } from "react-router-dom";
 import userStore from "../store/userStore";
+import Button from "./Button";
 
 const FormModal = () => {
 
@@ -123,9 +124,23 @@ const FormModal = () => {
                             <input ref={password} className="w-full p-3 text-sm font-[Clash_Display] rounded-full outline-none bg-[#F1F1F1]" placeholder="Password (min 8 character)" type="password" />
                         </div>
                         {type === "register" ?
-                            <button type="submit" className="w-full font-[Clash_Display] bg-[#003566] text-white p-3 rounded-full cursor-pointer hover:bg-[#003566e8] transition-all duration-300" onClick={userRegsiter}> Create an Account</button>
+                            // <button type="submit" className="w-full font-[Clash_Display] bg-[#003566] text-white p-3 rounded-full cursor-pointer hover:bg-[#003566e8] transition-all duration-300" onClick={userRegsiter}> Create an Account</button>
+
+                            <Button
+                                text="Create An Account"
+                                variant="primary"
+                                size="lg"
+                                onClick={userRegsiter}
+                                roundedFull={true}
+                            />
                             :
-                            <button type="submit" className="w-full font-[Clash_Display] bg-[#003566] text-white p-3 rounded-full cursor-pointer hover:bg-[#003566e8] transition-all duration-300" onClick={userLogin}> Login</button>
+                            <Button
+                                text="Login"
+                                variant="primary"
+                                size="lg"
+                                roundedFull={true}
+                                onClick={userLogin}
+                            />
                         }
 
 
@@ -134,9 +149,9 @@ const FormModal = () => {
                     <div>
                         {type === "register"
                             ?
-                            <p className="text-sm px-3">Already have an account? <button className="text-[#003566] font-bold cursor-pointer" onClick={toggleState}>Login</button></p>
+                            <p className="text-sm px-3 font-[Albert_Sans]">Already have an account? <button className="text-[#003566] font-bold cursor-pointer" onClick={toggleState}>Login</button></p>
                             :
-                            <p className="text-sm px-3">Don't have an account? <button className="text-[#003566] font-bold cursor-pointer" onClick={toggleState}>Create an Account</button></p>
+                            <p className="text-sm px-3 font-[Albert_Sans]">Don't have an account? <button className="text-[#003566] font-bold cursor-pointer" onClick={toggleState}>Create an Account</button></p>
                         }
                     </div>
 

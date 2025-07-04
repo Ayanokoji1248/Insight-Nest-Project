@@ -1,6 +1,7 @@
 import { Bookmark, Heart, MessageCircle } from "lucide-react"
 import type { BlogProp } from "./LatestBlogCard"
 import { NavLink } from "react-router-dom"
+import Tag from "./Tag"
 
 
 
@@ -21,12 +22,7 @@ const BlogCard = ({ _id, title, image, content, category, tags, user, likes, com
                     {tags.length > 0 &&
                         tags.map((tag, idx) =>
                             idx < 3 && (
-                                <p
-                                    key={idx}
-                                    className="text-zinc-500 bg-slate-200 w-fit rounded-full text-sm px-2 py-1 font-medium font-[Albert_Sans]"
-                                >
-                                    #{tag}
-                                </p>
+                                <Tag text={tag} />
                             )
                         )
                     }

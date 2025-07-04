@@ -11,6 +11,7 @@ import { BookmarkIcon, HeartIcon, MessageCircle } from "lucide-react";
 import userStore from "../store/userStore";
 import commentStore from "../store/commentStore";
 import { toast, ToastContainer } from "react-toastify";
+import Button from "../components/Button";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export interface CommentProp {
@@ -100,7 +101,7 @@ const ParticularBlog = () => {
         }
     }
 
-    
+
     // Dk know how to like/unlike post
     // const likeBlog = async (blogId: string) => {
     //     try {
@@ -143,10 +144,14 @@ const ParticularBlog = () => {
                     <div>
                         <h1 className="text-5xl md:text-7xl leading-none font-semibold font-[Clash_Display]">{blog.title}</h1>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center mt-2 justify-between">
                         <div className="flex items-center gap-5">
                             <p className="font-medium font-[Albert_Sans]">By <span className="text-blue-500 font-semibold">@{blog.user.username}</span></p>
-                            <button className="bg-amber-300 font-[Albert_Sans] font-semibold tracking-tight px-3 rounded-full">Follow</button>
+                            <Button
+                                text="Follow"
+                                variant="secondary"
+                                size="sm"
+                            />
                         </div>
                         <div className="font-semibold font-[Albert_Sans] text-sm">
                             {blog.createdAt.slice(0, 10)}
@@ -176,7 +181,15 @@ const ParticularBlog = () => {
                     {/* Input for Comment */}
                     {/* <label htmlFor="comment" className="">Enter Comment</label> */}
                     <textarea value={userComment} onChange={(e) => setUserComment(e.target.value)} name="comment" id="comment" className="w-full h-32 p-2 font-[Albert_Sans] outline-none border-[1px] border-zinc-500 rounded-md resize-none" placeholder="Enter your opinion..."></textarea>
-                    <button onClick={createComment} className="bg-blue-500 w-fit text-white px-4 py-2 rounded-md">Submit</button>
+                    {/*                     
+                    <button onClick={createComment} className="bg-blue-500 w-fit text-white px-4 py-2 rounded-md">Submit</button> */}
+                    <Button
+                        variant="blueButton"
+                        size="md"
+                        text="Submit"
+                        widthFull={false}
+                        onClick={createComment}
+                    />
                 </div>
                 <div className="mt-3">
                     <div>
@@ -196,8 +209,18 @@ const ParticularBlog = () => {
 
                                     {c.user._id === user?._id &&
                                         <div className="flex gap-3 mt-3">
-                                            <button className="font-[Albert_Sans] font-semibold bg-blue-500 text-white px-2 py-1 text-sm rounded-md ">Edit</button>
-                                            <button onClick={() => removeComment(c._id)} className="font-[Albert_Sans] font-semibold bg-red-500 text-white px-2 py-1 text-sm rounded-md">Delete</button>
+                                            <Button
+                                                text="Edit"
+                                                variant="blueButton"
+                                                size="sm"
+                                            />
+
+                                            <Button
+                                                variant="danger"
+                                                text="Delete"
+                                                size="sm"
+                                                onClick={() => removeComment(c._id)}
+                                            />
                                         </div>
                                     }
                                 </div>
