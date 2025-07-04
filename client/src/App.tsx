@@ -7,6 +7,7 @@ import ParticularBlog from "./pages/ParticularBlog"
 import axios from "axios"
 import { useEffect } from "react"
 import userStore from "./store/userStore"
+import UserProfilePage from "./pages/UserProfilePage"
 // import { useEffect } from "react"
 // import userStore from "./store/userStore"
 // import axios from "axios"
@@ -46,6 +47,11 @@ const App = () => {
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path='/write' element={<WritePage />} />
+        </Route>
+
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<UserProfilePage />} />
         </Route>
 
       </Routes>
