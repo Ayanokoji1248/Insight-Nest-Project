@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import e, { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import userModel from "../models/user.model";
 
@@ -69,5 +69,27 @@ export const getUserProfile = async (req: Request, res: Response, next: NextFunc
         res.status(500).json({
             message: "Internal Server Error"
         })
+    }
+}
+
+export const updateUserProfilePic = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { avatar } = req.body
+        const userId = req.user;
+
+        const user = await userModel.findByIdAndUpdate(userId, { avatar }, { new: true })
+
+        res.status(200).json({
+            user,
+            message: "Profile image uploaded"
+        })
+        return
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: "Internal Server Error",
+        })
+        return
     }
 }

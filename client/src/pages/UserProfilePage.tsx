@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 
 import userStore from '../store/userStore';
 import axios from 'axios';
@@ -6,11 +6,14 @@ import NavBar from '../components/NavBar';
 
 import { type BlogProp } from '../components/LatestBlogCard';
 import BlogCard from '../components/BlogCard';
+import { PenIcon } from 'lucide-react';
+import { uploadImage } from '../utils/uploadImage';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const UserProfilePage = () => {
-    const { user } = userStore();
+    const fileInputRef = useRef<HTMLInputElement | null>(null)
+    const { user, setUser } = userStore();
 
     const [latestBlog, setLatestBlog] = useState<BlogProp>();
     const [regularBlog, setRegularBlog] = useState<BlogProp[]>([])
@@ -27,7 +30,7 @@ const UserProfilePage = () => {
     const getUserBlog = async () => {
         try {
             const response = await axios.get(`${BACKEND_URL}/blog/myblogs`, { withCredentials: true })
-            console.log(response.data.blogs)
+            // console.log(response.data.blogs)
             setLatestBlog(response.data.blogs[0])
             setRegularBlog(response.data.blogs.slice(1))
         } catch (error) {
@@ -35,24 +38,58 @@ const UserProfilePage = () => {
         }
     }
 
+    const handleFileChange = () => {
+        fileInputRef.current?.click()
+    }
+
+    const handleProfileImage = async (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        const profileUrl = await uploadImage(file as File);
+        console.log(profileUrl)
+        try {
+            const response = await axios.put(`${BACKEND_URL}/user`, {
+                avatar: profileUrl
+            }, { withCredentials: true })
+            console.log(response)
+            setUser(response.data.user)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
+        console.log(user)
         getUserInfo();
         getUserBlog()
     }, []);
 
+    if (!user) {
+        return <div>User Not Found</div>
+    }
 
     return (
         <>
             <NavBar />
             <div className='max-w-7xl pt-20 mx-auto p-4'>
-                <h1 className='pl-3 border-l-8 border-amber-500 text-2xl font-[Clash_Display] font-semibold'>
-                    Profile
-                </h1>
 
-                <div className='flex flex-col md:flex-row items-start  gap-2 w-full h-full pt-3'>
+
+                <div className='flex flex-col md:flex-row items-center  gap-2 w-full h-full pt-3'>
                     <div className='w-full md:w-[50%] flex flex-col items-center justify-center gap-5 p-3'>
+                        <div className='w-full'>
+
+                            <h1 className='pl-3 border-l-8 border-amber-500 text-2xl font-[Clash_Display] font-semibold'>
+                                Profile
+                            </h1>
+                        </div>
                         <div className='flex flex-col items-center gap-2'>
-                            <div className='w-62 h-62 rounded-full bg-amber-400'></div>
+                            <div
+                                className="w-62 h-62 rounded-full relative bg-cover bg-center"
+                                style={{ backgroundImage: `url(${user?.avatar})` }}>
+                                <div className='w-8 h-8 bg-blue-900 rounded-full flex justify-center items-center absolute bottom-1 right-12 cursor-pointer' onClick={handleFileChange}>
+                                    <input ref={fileInputRef} type="file" className='hidden' onChange={handleProfileImage} />
+                                    <PenIcon className='text-white' size={18} /></div>
+                            </div>
                             <div className='flex flex-col items-center leading-4 gap-1'>
                                 <h1 className='text-3xl font-[Clash_Display] font-medium'>
                                     {user?.fullName}
@@ -127,7 +164,7 @@ const UserProfilePage = () => {
                         ))
                     }
                 </div>
-            </div>
+            </div >
         </>
     );
 };

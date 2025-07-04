@@ -18,7 +18,7 @@ type userType = {
 
 const userStore = create<userType>((set) => ({
     user: null,
-    setUser: (newUser) => set({ user: newUser })
+    setUser: (newUser) => set({ user: newUser }),
 }))
 
 export default userStore;

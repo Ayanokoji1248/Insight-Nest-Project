@@ -43,7 +43,7 @@ const NavBar = () => {
     }
 
     return (
-        <div className="w-full h-16 bg-white fixed flex items-center justify-between px-5 md:px-32 border-b-[1px] border-zinc-200">
+        <div className="w-full h-16 bg-white fixed flex items-center justify-between px-5 md:px-32 border-b-[1px] border-zinc-200 z-100">
             <div>
                 <h1 className="font-black text-2xl md:text-4xl font-[EB_Garamond] text-[#003566]">Insight Nest</h1>
             </div>
@@ -71,7 +71,9 @@ const NavBar = () => {
                         <div className="p-2 hover:bg-zinc-100 transition-all duration-300 cursor-pointer rounded-md">
                             <Bell strokeWidth={1} size={20} />
                         </div>
-                        <div className="w-8 h-8 rounded-full bg-amber-400 cursor-pointer" onClick={() => setVisible((prev) => !prev)}></div>
+                        <div style={{
+                            backgroundImage: `url(${user.avatar})`
+                        }} className="w-8 h-8 rounded-full cursor-pointer bg-center bg-cover" onClick={() => setVisible((prev) => !prev)}></div>
                         {visible && (
                             <div className="absolute top-12 left-1 md:left-8 bg-zinc-200 p-2 flex flex-col gap-2 items-center rounded-md transition-all duration-300 ease-in-out shadow-2xl shadow-black">
                                 <NavigationLink to="/profile" text="Profile" />
