@@ -5,6 +5,6 @@ const user_middleware_1 = require("../middlewares/user.middleware");
 const user_controller_1 = require("../controllers/user.controller");
 const userRouter = (0, express_1.Router)();
 userRouter.get('/me', user_middleware_1.userMiddleware, user_controller_1.getMeProfile);
-userRouter.get('/:id', user_middleware_1.userMiddleware, user_controller_1.getUserProfile);
+userRouter.get('/:id', user_controller_1.getUserProfile);
 userRouter.put('/', user_middleware_1.userMiddleware, user_controller_1.updateUserProfilePic);
 exports.default = userRouter;

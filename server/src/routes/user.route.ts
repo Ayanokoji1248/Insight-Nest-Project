@@ -5,7 +5,7 @@ const userRouter = Router();
 
 userRouter.get('/me', userMiddleware, getMeProfile)
 
-userRouter.get('/:id', userMiddleware, getUserProfile)
+userRouter.get('/:id', getUserProfile)
 
 userRouter.put('/', userMiddleware, updateUserProfilePic)
 

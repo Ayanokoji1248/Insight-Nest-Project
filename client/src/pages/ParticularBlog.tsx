@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 import NavBar from "../components/NavBar";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -31,8 +31,9 @@ const ParticularBlog = () => {
     const { id } = useParams();
     const { isOpen, openModal } = userModalStore()
     const { user } = userStore();
-    const { comments, setComments, addComment, deleteComment } = commentStore();
+    const { commentsByBlog, setComments, addComment, deleteComment } = commentStore();
 
+    const comments = commentsByBlog[id!] || []
     const [userComment, setUserComment] = useState("")
     const [blog, setBlog] = useState<BlogProp>();
     // const [comment, setComment] = useState<CommentProp[]>([]);
@@ -58,7 +59,7 @@ const ParticularBlog = () => {
             )
             console.log(response.data.comments)
             // Zustand Variable
-            setComments(response.data.comments);
+            setComments(id!, response.data.comments);
         } catch (error) {
             console.log(error)
         }
@@ -78,7 +79,7 @@ const ParticularBlog = () => {
                 comment: userComment
             }, { withCredentials: true })
             console.log(response.data.comment)
-            addComment(response.data.comment)
+            addComment(id!, response.data.comment)
 
             setUserComment("")
         } catch (error) {
@@ -94,7 +95,7 @@ const ParticularBlog = () => {
 
             console.log(response)
             toast.success(response.data.message);
-            deleteComment(commentId);
+            deleteComment(id!, commentId);
 
         } catch (error) {
             console.log(error)
@@ -146,7 +147,7 @@ const ParticularBlog = () => {
                     </div>
                     <div className="flex items-center mt-2 justify-between">
                         <div className="flex items-center gap-5">
-                            <p className="font-medium font-[Albert_Sans]">By <span className="text-blue-500 font-semibold">@{blog.user.username}</span></p>
+                            <NavLink to={`/user/${blog.user._id}`} className="font-medium font-[Albert_Sans]">By <span className="text-blue-500 font-semibold">@{blog.user.username}</span></NavLink>
                             <Button
                                 text="Follow"
                                 variant="secondary"

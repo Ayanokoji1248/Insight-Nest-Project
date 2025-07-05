@@ -2,21 +2,38 @@ import { create } from "zustand";
 import type { CommentProp } from "../pages/ParticularBlog";
 
 interface CommentStoreProp {
-    comments: CommentProp[],
-    addComment: (newComment: CommentProp) => void;
-    deleteComment: (commentId: string) => void;
-    setComments: (comments: CommentProp[]) => void;
+    commentsByBlog: { [blogId: string]: CommentProp[] };
+    setComments: (blogId: string, comments: CommentProp[]) => void;
+    addComment: (blogId: string, comment: CommentProp) => void;
+    deleteComment: (blogId: string, commentId: string) => void;
 }
 
 const commentStore = create<CommentStoreProp>((set) => ({
-    comments: [],
+    commentsByBlog: {},
 
-    addComment: (newComment) => set((state) => ({ comments: [newComment, ...state.comments] })),
+    setComments: (blogId, comments) =>
+        set((state) => ({
+            commentsByBlog: {
+                ...state.commentsByBlog,
+                [blogId]: comments,
+            },
+        })),
 
-    deleteComment: (commentId) => set((state) => ({
-        comments: state.comments.filter((comment) => comment._id !== commentId)
-    })),
+    addComment: (blogId, comment) =>
+        set((state) => ({
+            commentsByBlog: {
+                ...state.commentsByBlog,
+                [blogId]: [comment, ...(state.commentsByBlog[blogId] || [])],
+            },
+        })),
 
-    setComments: (comments) => set({ comments })
-}))
-export default commentStore
+    deleteComment: (blogId, commentId) =>
+        set((state) => ({
+            commentsByBlog: {
+                ...state.commentsByBlog,
+                [blogId]: state.commentsByBlog[blogId].filter((c) => c._id !== commentId),
+            },
+        })),
+}));
+
+export default commentStore;

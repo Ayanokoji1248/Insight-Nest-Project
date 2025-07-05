@@ -43,34 +43,33 @@ export const getUserProfile = async (req: Request, res: Response, next: NextFunc
         const { id } = req.params;
 
         if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-            res.status(400).json({
-                message: "Invalid Id"
-            })
+            res.status(400).json({ message: "Invalid Id" });
             return
         }
 
-        const user = await userModel.findById(id).select("-password");
+        const user = await userModel
+            .findById(id)
+            .select("-password")
+            .populate({
+                path: "Blog",
+                populate: { path: "user", select: "_id username avatar" }
+            });
 
         if (!user) {
-            res.status(404).json({
-                message: "User not found"
-            })
+            res.status(404).json({ message: "User not found" });
             return
         }
 
         res.status(200).json({
             message: "User Found",
             user
-        })
-        return
-
+        });
     } catch (error) {
-        console.log(error)
-        res.status(500).json({
-            message: "Internal Server Error"
-        })
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-}
+};
+
 
 export const updateUserProfilePic = async (req: Request, res: Response, next: NextFunction) => {
     try {

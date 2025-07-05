@@ -4,6 +4,7 @@ import Tag from "./Tag"
 
 export interface BlogProp {
     user: {
+        _id: string
         username: string
     }
     _id: string,

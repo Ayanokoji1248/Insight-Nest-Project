@@ -8,6 +8,7 @@ import axios from "axios"
 import { useEffect } from "react"
 import userStore from "./store/userStore"
 import UserProfilePage from "./pages/UserProfilePage"
+import ProfilePage from "./pages/ProfilePage"
 // import { useEffect } from "react"
 // import userStore from "./store/userStore"
 // import axios from "axios"
@@ -43,6 +44,7 @@ const App = () => {
 
         <Route path='/blog' element={<BlogPage />} />
         <Route path="/blog/:id" element={<ParticularBlog />} />
+        <Route path="/user/:id" element={<ProfilePage />} />
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
