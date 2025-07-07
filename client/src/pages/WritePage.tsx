@@ -106,8 +106,16 @@ const WritePage = () => {
                             <label htmlFor="category" className="font-[Albert_Sans] font-semibold tracking-tight">Select category:</label>
                             <select name="category" id="category" className="p-3 border-[1px] rounded-md border-sky-950 text-sm text-zinc-500 outline-none focus:ring-[1px] transition-all duration-300" value={category} onChange={(e) => setCategory(e.target.value)}>
                                 <option value="" disabled hidden>Select your Category</option>
+                                <option value="Technology" className="text-[Albert_Sans] text-sm">Technology</option>
                                 <option value="Health" className="text-[Albert_Sans] text-sm">Health</option>
+                                <option value="Lifestyle" className="text-[Albert_Sans] text-sm">Lifestyle</option>
+                                <option value="Education" className="text-[Albert_Sans] text-sm">Education</option>
+                                <option value="Travel" className="text-[Albert_Sans] text-sm">Travel</option>
+                                <option value="Finance" className="text-[Albert_Sans] text-sm">Finance</option>
+                                <option value="Entertainment" className="text-[Albert_Sans] text-sm">Entertainment</option>
+                                <option value="Business" className="text-[Albert_Sans] text-sm">Business</option>
                                 <option value="Development" className="text-[Albert_Sans] text-sm">Development</option>
+
                             </select>
                         </div>
                     </div>

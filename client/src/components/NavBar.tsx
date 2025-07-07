@@ -58,7 +58,7 @@ const NavBar = () => {
                 ) : (
                     <>
                         <NavigationLink to="/" text="Home" />
-                        <NavigationLink to="/about" text="About Us" />
+                        <NavigationLink to="/blog" text="Blogs" />
                         <button className="font-[Clash_Display] text-sm font-medium text-[#003566] cursor-pointer" onClick={openModal}>Write</button>
                         <button className="font-[Clash_Display] text-sm font-medium text-[#003566] cursor-pointer" onClick={openModal}>Sign-In</button>
                     </>

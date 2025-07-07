@@ -2,6 +2,7 @@ import { Bookmark, Heart, MessageCircle } from "lucide-react"
 import type { BlogProp } from "./LatestBlogCard"
 import { NavLink } from "react-router-dom"
 import Tag from "./Tag"
+import Badge from "./Badge"
 
 
 
@@ -13,7 +14,7 @@ const BlogCard = ({ _id, title, image, content, category, tags, user, likes, com
             </div>
             <div className="flex flex-col gap-3 p-5 pt-2">
                 <div className="flex items-center justify-between">
-                    <p className="text-black font-medium font-[Clash_Display] text-xs md:text-sm p-3 py-1 rounded-full bg-amber-500 w-fit">{category}</p>
+                    <Badge category={category} />
                     <NavLink to={`/user/${user._id}`} className="font-[Albert_Sans] italic text-xs md:text-sm text-blue-500 font-semibold">@{user.username}</NavLink>
                 </div>
                 <NavLink to={`/blog/${_id}`} className="text-4xl md:text-3xl font-semibold font-[Clash_Display] ">{title.substring(0, 40)}...</NavLink>

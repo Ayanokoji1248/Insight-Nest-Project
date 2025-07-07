@@ -12,6 +12,7 @@ import userStore from "../store/userStore";
 import commentStore from "../store/commentStore";
 import { toast, ToastContainer } from "react-toastify";
 import Button from "../components/Button";
+import Badge from "../components/Badge";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export interface CommentProp {
@@ -139,7 +140,7 @@ const ParticularBlog = () => {
             <div className="max-w-[900px] mx-auto p-5 pt-24">
                 <div id="head" className="flex flex-col gap-2">
                     <div>
-                        <p className="w-fit text-sm font-[Clash_Display] font-medium bg-amber-400 px-2 py-1 rounded-full">{blog.category}</p>
+                        <Badge category={blog.category} />
                     </div>
 
                     <div>
