@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import FormModal from "../components/FormModal"
 import NavBar from "../components/NavBar"
 import userModalStore from "../store/userModalStore"
