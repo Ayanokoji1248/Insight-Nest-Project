@@ -127,7 +127,7 @@ const ParticularBlog = () => {
 
     return (
         <>
-            <ToastContainer position={"top-right"} />
+            <ToastContainer position={"top-right"} className="absolute z-[999]" />
             <NavBar />
 
             {isOpen &&
@@ -204,7 +204,11 @@ const ParticularBlog = () => {
                         {/* Comment Card With edit and delete button */}
                         {comments.map((c) => (
                             <div key={c._id} className="flex gap-3 items-center">
-                                <div className="w-12 h-12 shrink-0 bg-black rounded-full"></div>
+                                <div className={`w-12 h-12 shrink-0 bg-black rounded-full overflow-auto`}>
+                                    {c.user.avatar &&
+                                        <img src={c.user.avatar} className="w-full h-full object-center object-cover" alt="" />
+                                    }
+                                </div>
                                 <div className="flex flex-col leading-none">
                                     <h1 className="font-[Albert_Sans] font-semibold text-lg">{c.user.username}</h1>
                                     <p className="font-[Albert_Sans] tracking-tight text-zinc-500">{c.comment}</p>

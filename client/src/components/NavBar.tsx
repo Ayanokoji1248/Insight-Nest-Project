@@ -73,7 +73,7 @@ const NavBar = () => {
                         </div>
                         <div style={{
                             backgroundImage: `url(${user.avatar})`
-                        }} className="w-8 h-8 rounded-full cursor-pointer bg-center bg-cover" onClick={() => setVisible((prev) => !prev)}></div>
+                        }} className="w-8 h-8 border-2 rounded-full cursor-pointer bg-center bg-cover" onClick={() => setVisible((prev) => !prev)}></div>
                         {visible && (
                             <div className="absolute top-12 left-1 md:left-8 bg-white p-2 flex flex-col gap-2 items-center rounded-md transition-all duration-300 ease-in-out shadow-2xl shadow-black">
                                 <NavigationLink to="/profile" text="Profile" />

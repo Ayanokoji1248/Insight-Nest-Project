@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unlikePost = exports.likePost = exports.deleteBlog = exports.editBlog = exports.createBlog = exports.getBlog = exports.getAllBlog = exports.getUserBlog = void 0;
+exports.searchBlog = exports.unlikePost = exports.likePost = exports.deleteBlog = exports.editBlog = exports.createBlog = exports.getBlog = exports.getAllBlog = exports.getUserBlog = void 0;
 const zod_1 = require("zod");
 const blog_model_1 = __importDefault(require("../models/blog.model"));
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -347,3 +347,40 @@ const unlikePost = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.unlikePost = unlikePost;
+const searchBlog = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { query } = req.query;
+        if (!query) {
+            res.status(400).json({
+                message: "Query string is required"
+            });
+            return;
+        }
+        // finding post using mongoose
+        const blogs = yield blog_model_1.default.find({
+            $or: [
+                { title: { $regex: query, $options: "i" } },
+                { content: { $regex: query, $options: "i" } },
+                { tags: { $regex: query, $options: "i" } },
+            ]
+        }).populate("user", "_id username");
+        if (blogs.length === 0) {
+            res.status(400).json({
+                message: "No Blogs Found"
+            });
+            return;
+        }
+        res.status(200).json({
+            message: "Blogs found",
+            blogs
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+        return;
+    }
+});
+exports.searchBlog = searchBlog;

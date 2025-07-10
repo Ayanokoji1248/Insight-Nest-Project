@@ -9,6 +9,7 @@ import { useEffect } from "react"
 import userStore from "./store/userStore"
 import UserProfilePage from "./pages/UserProfilePage"
 import ProfilePage from "./pages/ProfilePage"
+import SearchPage from "./pages/SearchPage"
 // import { useEffect } from "react"
 // import userStore from "./store/userStore"
 // import axios from "axios"
@@ -41,6 +42,8 @@ const App = () => {
       <Routes>
         {/* Unprotected Routes */}
         <Route path="/" element={<HomePage />} />
+
+        <Route path="/search" element={<SearchPage />} />
 
         <Route path='/blog' element={<BlogPage />} />
         <Route path="/blog/:id" element={<ParticularBlog />} />

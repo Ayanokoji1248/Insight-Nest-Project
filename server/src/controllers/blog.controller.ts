@@ -387,3 +387,40 @@ export const unlikePost = async (req: Request, res: Response, next: NextFunction
         return
     }
 };
+
+
+export const searchBlog = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { query } = req.query
+        if (!query) {
+            res.status(400).json({
+                message: "Query string is required"
+            })
+            return
+        }
+        // finding post using mongoose
+        const blogs = await blogModel.find({
+            $or: [
+                { title: { $regex: query, $options: "i" } },
+                { content: { $regex: query, $options: "i" } },
+                { tags: { $regex: query, $options: "i" } },
+            ]
+        }).populate("user", "_id username")
+        if (blogs.length === 0) {
+            res.status(400).json({
+                message: "No Blogs Found"
+            })
+            return
+        }
+        res.status(200).json({
+            message: "Blogs found",
+            blogs
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        })
+        return
+    }
+}

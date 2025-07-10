@@ -84,7 +84,7 @@ const UserProfilePage = () => {
                         </div>
                         <div className='flex flex-col items-center gap-2'>
                             <div
-                                className="w-62 h-62 rounded-full relative bg-cover bg-center"
+                                className="w-62 h-62 rounded-full relative bg-cover bg-center border-[1px]"
                                 style={{ backgroundImage: `url(${user?.avatar})` }}>
                                 <div className='w-8 h-8 bg-blue-900 rounded-full flex justify-center items-center absolute bottom-1 right-12 cursor-pointer' onClick={handleFileChange}>
                                     <input ref={fileInputRef} type="file" className='hidden' onChange={handleProfileImage} />

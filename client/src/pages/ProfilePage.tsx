@@ -51,6 +51,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         getUserInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     if (!user) {
@@ -78,7 +79,7 @@ const ProfilePage = () => {
                         </div>
                         <div className="flex flex-col items-center gap-2">
                             <div
-                                className="w-62 h-62 rounded-full bg-cover bg-center relative"
+                                className="w-62 h-62 rounded-full bg-cover bg-center relative border-[1px]"
                                 style={{ backgroundImage: `url(${user.avatar || "/default-avatar.png"})` }}
                             >
                             </div>
