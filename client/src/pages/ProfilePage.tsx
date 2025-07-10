@@ -6,6 +6,8 @@ import BlogCard from "../components/BlogCard";
 import { type BlogProp } from "../components/LatestBlogCard";
 import FormModal from "../components/FormModal";
 import userModalStore from "../store/userModalStore";
+import Button from "../components/Button";
+import userStore from "../store/userStore";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -22,6 +24,7 @@ interface UserProp {
 
 const ProfilePage = () => {
     const { id } = useParams();
+    const currentUser = userStore().user
     const { isOpen } = userModalStore()
     const [user, setUser] = useState<UserProp | null>(null);
     const [latestBlog, setLatestBlog] = useState<BlogProp | null>(null);
@@ -32,7 +35,6 @@ const ProfilePage = () => {
             const response = await axios.get(`${BACKEND_URL}/user/${id}`, { withCredentials: true });
             const fetchedUser = response.data.user;
             setUser(fetchedUser);
-            console.log(response.data)
             if (fetchedUser.Blog && fetchedUser.Blog.length > 0) {
                 // Sort blogs by createdAt (latest first)
                 const sortedBlogs = [...fetchedUser.Blog].sort(
@@ -79,10 +81,6 @@ const ProfilePage = () => {
                                 className="w-62 h-62 rounded-full bg-cover bg-center relative"
                                 style={{ backgroundImage: `url(${user.avatar || "/default-avatar.png"})` }}
                             >
-                                {/* Optionally add edit icon */}
-                                <div className="w-8 h-8 bg-blue-900 rounded-full flex justify-center items-center absolute bottom-1 right-12 cursor-pointer">
-                                    {/* <PenIcon size={18} color="white" /> */}
-                                </div>
                             </div>
                             <div className="flex flex-col items-center leading-4 gap-1">
                                 <h1 className="text-3xl font-[Clash_Display] font-medium">{user.fullName}</h1>
@@ -103,6 +101,11 @@ const ProfilePage = () => {
                                     </div>
                                 </div>
                             </div>
+                            {user._id !== currentUser?._id &&
+                                <div className="mt-2">
+                                    <Button variant="secondary" text="Follow" />
+                                </div>
+                            }
                         </div>
                         <div className="p-2">
                             <h2 className="text-2xl font-[Albert_Sans] font-black">Bio</h2>
